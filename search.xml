@@ -4,9 +4,7 @@
     <title>Hello World</title>
     <url>/2020/07/01/hello-world/</url>
     <content><![CDATA[<p><strong>Welcome to Lexie’s World!!!</strong></p>
-<a id="more"></a>
-
-<!--more-->]]></content>
+<a id="more"></a>]]></content>
   </entry>
   <entry>
     <title>SSM整合</title>
