@@ -9,8 +9,7 @@
   <entry>
     <title>Servlet</title>
     <url>/2020/07/02/Servlet/</url>
-    <content><![CDATA[<h1 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h1><h2 id="原博客链接"><a href="#原博客链接" class="headerlink" title="原博客链接"></a>原博客链接</h2><p><a href="https://blog.csdn.net/qq_19782019/article/details/80292110?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/qq_19782019/article/details/80292110?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase</a></p>
-<h2 id="1-什么是Servlet"><a href="#1-什么是Servlet" class="headerlink" title="1. 什么是Servlet"></a>1. 什么是Servlet</h2><p>Servlet（Server Applet），全称Java Servlet，未有中文译文。是用Java编写的<strong>服务器端程序</strong>。其<strong>主要功能</strong>在于<font color="red"> <strong>交互式地浏览和修改数据，生成动态Web内容。</strong></font></p>
+    <content><![CDATA[<h1 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h1><h2 id="1-什么是Servlet"><a href="#1-什么是Servlet" class="headerlink" title="1. 什么是Servlet"></a>1. 什么是Servlet</h2><p>Servlet（Server Applet），全称Java Servlet，未有中文译文。是用Java编写的<strong>服务器端程序</strong>。其<strong>主要功能</strong>在于<font color="red"> <strong>交互式地浏览和修改数据，生成动态Web内容。</strong></font></p>
 <p>狭义的Servlet是指Java语言实现的一个接口，广义的Servlet是指任何实现了这个Servlet接口的类，一般情况下，人们将Servlet理解为后者。</p>
 <p>Servlet运行于支持Java的应用服务器中。从实现上讲，Servlet可以响应任何类型的请求，但绝大多数情况下Servlet只用来扩展基于HTTP协议的Web服务器。</p>
 <h2 id="2-Servlet的工作模式"><a href="#2-Servlet的工作模式" class="headerlink" title="2. Servlet的工作模式"></a>2. Servlet的工作模式</h2><ol>
@@ -183,7 +182,14 @@
 <p>分析到这一步，我们发现Spring容器在这个方法中被实例化了。接下来，就让我们整理一下整体的思路：</p>
 <p>当Servlet容器启动时，ServletContext对象被初始化，然后Servlet容器调用web.xml中注册的监听器的public void contextInitialized(ServletContextEvent event)方法，而在监听器中，调用了this.initWebApplicationContext(event.getServletContext())方法，在这个方法中实例化了Spring IOC容器。即ApplicationContext对象。</p>
 <p>因此，当ServletContext创建时我们可以创建applicationContext对象，当ServletContext销毁时，我们可以销毁applicationContext对象。这样applicationContext就和ServletContext“共生死了”。</p>
+<h2 id="原博客链接"><a href="#原博客链接" class="headerlink" title="原博客链接"></a>原博客链接</h2><p><a href="https://blog.csdn.net/qq_19782019/article/details/80292110?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/qq_19782019/article/details/80292110?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase</a></p>
 ]]></content>
+      <categories>
+        <category>基础</category>
+      </categories>
+      <tags>
+        <tag>javaweb</tag>
+      </tags>
   </entry>
   <entry>
     <title>Maven学习博客链接合集</title>
@@ -288,7 +294,7 @@
 <p>要想在controller中调用service方法，就要注入service到controller中来，有service对象才可以调用service方法，方法是这样没有错，但是有一个问题:</p>
 <p>就是启动Tomcat之后试想一下，在web.xml中配置有前端控制器，web容器会帮我们加载springmvc.xml配置文件，在springmvc.xml配置文件中我们配置情况是只扫描controller，别的不扫，而spring.xml文件就从头到尾没有执行过，spring中的配置扫描自然也不会去扫描，就相当于没有将spring交到IOC容器当中去。</p>
 <p>所以，现在的解决方案就是，在启动服务器时就加载spring配置文件,怎么实现呢？这时候监听器listener就派上用场了，具体实现如下：</p>
-<p><img src="https://img-blog.csdnimg.cn/20190902171005382.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NTQzNTA4,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/../images/SSM%E6%95%B4%E5%90%88/20190902171005382.png" alt="img"></p>
 <h3 id="在web-xml中配置ContextLoaderListener监听器"><a href="#在web-xml中配置ContextLoaderListener监听器" class="headerlink" title="在web.xml中配置ContextLoaderListener监听器"></a>在web.xml中配置ContextLoaderListener监听器</h3><p>在项目启动的时候，就去加载applicationContext.xml的配置文件，在web.xml中配置ContextLoaderListener监听器（该监听器只能加载WEB-INF目录下的applicationContext.xml的配置文件）。要想加载applicationContext.xml的配置文件有两种方法</p>
 <p>第一种（不建议）：把applicationContext.xm配置文件配置到WEB-INF目录下</p>
 <p>第二种（强烈建议）：在web.xml中配置加载路径(方便管理和维护)</p>
@@ -302,7 +308,7 @@
 
 <h3 id="创建SqlMapConfig-xml的配置文件并编写"><a href="#创建SqlMapConfig-xml的配置文件并编写" class="headerlink" title="创建SqlMapConfig.xml的配置文件并编写"></a>创建SqlMapConfig.xml的配置文件并编写</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span> <span class="meta">&lt;!DOCTYPE <span class="meta-keyword">configuration</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//mybatis.org//DTD Config 3.0//EN"</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">"http://mybatis.org/dtd/mybatis-3-config.dtd"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--mybatis配置文件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">"mysql"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">"mysql"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql:///ssm?useSSL=false<span class="symbol">&amp;amp;</span>serverTimezone=UTC"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用的是注解 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;mapper class="com.gx.dao.IAccountdao"/&gt; --&gt;</span> <span class="comment">&lt;!-- 该包下所有的dao接口都可以使用 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"com.gx.dao"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/20190902181214119.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NTQzNTA4,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/../images/SSM%E6%95%B4%E5%90%88/20190902181214119.png" alt="img"></p>
 <h3 id="创建并编写Mybatis测试方法"><a href="#创建并编写Mybatis测试方法" class="headerlink" title="创建并编写Mybatis测试方法"></a>创建并编写Mybatis测试方法</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.gx.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.gx.dao.IAccountdao;</span><br><span class="line"><span class="keyword">import</span> com.gx.domain.Account;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.io.Resources;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSession;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMyBatis</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run1</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Account account =<span class="keyword">new</span> Account();</span><br><span class="line">        account.setName(<span class="string">"杜永蓝"</span>);</span><br><span class="line">        account.setMoney(<span class="number">200</span>d);</span><br><span class="line">        <span class="comment">// 加载配置文件</span></span><br><span class="line">        InputStream in = Resources.getResourceAsStream(<span class="string">"SqlMapConfig.xml"</span>);</span><br><span class="line">        <span class="comment">// 创建SqlSessionFactory对象</span></span><br><span class="line">        SqlSessionFactory factory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(in);</span><br><span class="line">        <span class="comment">// 创建SqlSession对象</span></span><br><span class="line">        SqlSession session = factory.openSession();</span><br><span class="line">        <span class="comment">// 获取到代理对象</span></span><br><span class="line">        IAccountdao dao = session.getMapper(IAccountdao<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 保存</span></span><br><span class="line">        dao.saveAccount(account);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 提交事务</span></span><br><span class="line">        session.commit();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭资源</span></span><br><span class="line">        session.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run2</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        InputStream in = Resources.getResourceAsStream(<span class="string">"SqlMapConfig.xml"</span>);</span><br><span class="line"></span><br><span class="line">        SqlSessionFactory factory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(in);</span><br><span class="line"></span><br><span class="line">        SqlSession session = factory.openSession();</span><br><span class="line"></span><br><span class="line">        IAccountdao dao = session.getMapper(IAccountdao<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        List&lt;Account&gt; list = dao.findAll();</span><br><span class="line">        <span class="keyword">for</span> (Account account: list ) &#123;</span><br><span class="line">            System.out.println(account);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        session.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>到这Mybatis框架搭建完成；</p>
@@ -335,6 +341,12 @@
 <h3 id="测试运行"><a href="#测试运行" class="headerlink" title="测试运行"></a>测试运行</h3><p>完lalalalalala！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！</p>
 <h3 id="源码、源码、源码"><a href="#源码、源码、源码" class="headerlink" title="源码、源码、源码~"></a>源码、源码、源码~</h3><p>链接：<a href="https://pan.baidu.com/s/1rJ5zy1cMuiHYvFHz1wFuOg" target="_blank" rel="noopener">https://pan.baidu.com/s/1rJ5zy1cMuiHYvFHz1wFuOg</a><br>提取码：yjx3 </p>
 ]]></content>
+      <categories>
+        <category>框架</category>
+      </categories>
+      <tags>
+        <tag>SSM</tag>
+      </tags>
   </entry>
   <entry>
     <title>TCP-IP</title>
@@ -512,11 +524,18 @@
 <p>l MIB和SMI分别是什么？</p>
 <p>l SNMP的两种数据采集方法的特点是什么？</p>
 ]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>tcp/ip</tag>
+      </tags>
   </entry>
   <entry>
     <title>SpringMVC</title>
     <url>/2020/07/02/SpringMVC/</url>
-    <content><![CDATA[<h1 id="SpringMVC第一天"><a href="#SpringMVC第一天" class="headerlink" title="SpringMVC第一天"></a>SpringMVC第一天</h1><h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="1-1三层架构和MVC"><a href="#1-1三层架构和MVC" class="headerlink" title="1.1三层架构和MVC"></a>1.1三层架构和MVC</h3><p>咱们开发服务器端程序，一般都基于两种形式，一种C/S架构程序，一种B/S架构程序</p>
+    <content><![CDATA[<ul>
+<li><h1 id="SpringMVC第一天"><a href="#SpringMVC第一天" class="headerlink" title="SpringMVC第一天"></a>SpringMVC第一天</h1><h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="1-1三层架构和MVC"><a href="#1-1三层架构和MVC" class="headerlink" title="1.1三层架构和MVC"></a>1.1三层架构和MVC</h3><p>咱们开发服务器端程序，一般都基于两种形式，一种C/S架构程序，一种B/S架构程序</p>
 <p>使用Java语言基本上都是开发B/S架构的程序，B/S架构又分成了三层架构</p>
 <h4 id="1-1-1-三层架构"><a href="#1-1-1-三层架构" class="headerlink" title="1.1.1 三层架构"></a>1.1.1 三层架构</h4><p>表现层：WEB层，用来和客户端进行数据交互的。表现层一般会采用MVC的设计模型</p>
 <p>业务层：处理公司具体的业务逻辑的</p>
@@ -525,10 +544,10 @@
 <p>Model：数据模型，JavaBean的类，用来进行数据封装。</p>
 <p>View：指JSP、HTML用来展示数据给用户</p>
 <p>Controller：用来接收用户的请求，整个流程的控制器。用来进行数据校验等。</p>
-<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623144308989.png" alt="image-20200623144308989"></p>
+<p><img src="../images/SpringMVC/image-20200623144308989.png" alt="image-20200623144308989"></p>
 <h3 id="1-2-SpringMVC的基本概念"><a href="#1-2-SpringMVC的基本概念" class="headerlink" title="1.2 SpringMVC的基本概念"></a>1.2 SpringMVC的基本概念</h3><h4 id="1-2-1-SpringMVC的概述"><a href="#1-2-1-SpringMVC的概述" class="headerlink" title="1.2.1 SpringMVC的概述"></a>1.2.1 SpringMVC的概述</h4><p>是一种基于Java实现的MVC设计模型的请求驱动类型的轻量级WEB框架。Spring MVC属于SpringFrameWork的后续产品，已经融合在Spring Web Flow里面。Spring 框架提供了构建 Web 应用程序的全功能 MVC 模块。</p>
 <p>使用 Spring 可插入的 MVC 架构，从而在使用Spring进行WEB开发时，可以选择使用Spring的<br>SpringMVC框架或集成其他MVC开发框架.</p>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><h3 id="2-1-SpringMVC的入门程序步骤"><a href="#2-1-SpringMVC的入门程序步骤" class="headerlink" title="2.1 SpringMVC的入门程序步骤"></a>2.1 SpringMVC的入门程序步骤</h3><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623145414511.png" alt="image-20200623145414511">.</p>
+<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><h3 id="2-1-SpringMVC的入门程序步骤"><a href="#2-1-SpringMVC的入门程序步骤" class="headerlink" title="2.1 SpringMVC的入门程序步骤"></a>2.1 SpringMVC的入门程序步骤</h3><p><img src="../images/SpringMVC/image-20200623145414511.png" alt="image-20200623145414511">.</p>
 <h4 id="2-1-1环境搭建"><a href="#2-1-1环境搭建" class="headerlink" title="2.1.1环境搭建"></a>2.1.1环境搭建</h4><ol>
 <li>创建webapp程序</li>
 <li>加入键值对：archetypeCatalog——intenal</li>
@@ -554,8 +573,8 @@
 <ol start="3">
 <li>配置web.xml和springmvc.xml</li>
 </ol>
-<h4 id="2-1-4流程图解"><a href="#2-1-4流程图解" class="headerlink" title="2.1.4流程图解"></a>2.1.4流程图解</h4><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623162417585.png" alt="image-20200623162417585"></p>
-<h3 id="2-2入门案例的分析执行流程"><a href="#2-2入门案例的分析执行流程" class="headerlink" title="2.2入门案例的分析执行流程"></a>2.2入门案例的分析执行流程</h3><h4 id="2-2-1入门案例的分析执行流程"><a href="#2-2-1入门案例的分析执行流程" class="headerlink" title="2.2.1入门案例的分析执行流程"></a>2.2.1入门案例的分析执行流程</h4><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200623163304595.png" alt="image-20200623163304595"></p>
+<h4 id="2-1-4流程图解"><a href="#2-1-4流程图解" class="headerlink" title="2.1.4流程图解"></a>2.1.4流程图解</h4><p><img src="../images/SpringMVC/image-20200623162417585.png" alt="image-20200623162417585"></p>
+<h3 id="2-2入门案例的分析执行流程"><a href="#2-2入门案例的分析执行流程" class="headerlink" title="2.2入门案例的分析执行流程"></a>2.2入门案例的分析执行流程</h3><h4 id="2-2-1入门案例的分析执行流程"><a href="#2-2-1入门案例的分析执行流程" class="headerlink" title="2.2.1入门案例的分析执行流程"></a>2.2.1入门案例的分析执行流程</h4><p><img src="../images/SpringMVC/image-20200623163304595.png" alt="image-20200623163304595"></p>
 <ol>
 <li>当启动Tomcat服务器的时候，因为配置了load-on-startup标签，所以会创建DispatcherServlet对象，就会加载springmvc.xml配置文件.</li>
 <li>开启了注解扫描，那么HelloController对象就会被创建</li>
@@ -668,7 +687,7 @@
 </tbody></table>
 </li>
 </ol>
-<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200625203159721.png" alt="image-20200625203159721"></p>
+<p><img src="../images/SpringMVC/image-20200625203159721.png" alt="image-20200625203159721"></p>
 <h4 id="4-3-4-基于HiddentHttpMethodFilter的示例"><a href="#4-3-4-基于HiddentHttpMethodFilter的示例" class="headerlink" title="4.3.4 基于HiddentHttpMethodFilter的示例"></a>4.3.4 基于HiddentHttpMethodFilter的示例</h4><p><strong>作用：</strong> 由于浏览器 form 表单只支持 GET 与 POST 请求，而DELETE、PUT 等 method 并不支持，Spring3.0 添加了一个过滤器，可以将浏览器请求改为指定的请求方式，发送给我们的控制器方法，使得支持 GET、POST、PUT 与DELETE 请求。</p>
 <p> <strong>使用方法：</strong> 第一步：在web.xml中配置该过滤器。 第二步：请求方式必须使用post请求。 第三步：按照要求提供_method请求参数，该参数的取值就是我们需要的请求方式。</p>
 <h3 id="4-4-RequestHeader注解"><a href="#4-4-RequestHeader注解" class="headerlink" title="4.4 RequestHeader注解"></a>4.4 RequestHeader注解</h3><h4 id="4-4-1-作用"><a href="#4-4-1-作用" class="headerlink" title="4.4.1 作用"></a>4.4.1 作用</h4><p>获取指定请求头的值</p>
@@ -682,7 +701,7 @@
 <h3 id="4-7-SessionAttribute注解"><a href="#4-7-SessionAttribute注解" class="headerlink" title="4.7 SessionAttribute注解"></a>4.7 SessionAttribute注解</h3><h4 id="4-7-1作用"><a href="#4-7-1作用" class="headerlink" title="4.7.1作用"></a>4.7.1作用</h4><p>用于多次执行控制器方法间的参数共享(存入session域或者request中)</p>
 <h4 id="4-7-2-属性"><a href="#4-7-2-属性" class="headerlink" title="4.7.2 属性"></a>4.7.2 属性</h4><p>value：指定存入属性的名称</p>
 <h1 id="SpringMVC第二天"><a href="#SpringMVC第二天" class="headerlink" title="SpringMVC第二天"></a>SpringMVC第二天</h1><p>看随堂笔记吧</p>
-<h2 id="异常抛出流程"><a href="#异常抛出流程" class="headerlink" title="异常抛出流程"></a>异常抛出流程</h2><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200626164325476.png" alt="image-20200626164325476"></p>
+<h2 id="异常抛出流程"><a href="#异常抛出流程" class="headerlink" title="异常抛出流程"></a>异常抛出流程</h2><p><img src="../images/SpringMVC/image-20200626164325476.png" alt="image-20200626164325476"></p>
 <h2 id="第四章：SpringMVC框架中的拦截器"><a href="#第四章：SpringMVC框架中的拦截器" class="headerlink" title="第四章：SpringMVC框架中的拦截器"></a>第四章：SpringMVC框架中的拦截器</h2><h2 id="4-1拦截器的概述"><a href="#4-1拦截器的概述" class="headerlink" title="4.1拦截器的概述"></a>4.1拦截器的概述</h2><ol>
 <li><p>SpringMVC框架中的拦截器用于对处理器进行预处理和后处理的技术。</p>
 </li>
@@ -731,7 +750,16 @@
 <li>再使用Spring整合SpringMVC框架</li>
 <li>最后使用Spring整合MyBatis框架</li>
 </ul>
+</li>
+</ul>
 ]]></content>
+      <categories>
+        <category>框架</category>
+      </categories>
+      <tags>
+        <tag>SSM</tag>
+        <tag>SpringMVC</tag>
+      </tags>
   </entry>
   <entry>
     <title>Hello World</title>
