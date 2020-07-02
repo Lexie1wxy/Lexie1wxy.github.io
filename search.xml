@@ -951,5 +951,9 @@
       <categories>
         <category>test</category>
       </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>test</tag>
+      </tags>
   </entry>
 </search>
