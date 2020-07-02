@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javaweb," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Servlet1. 什么是ServletServlet（Server Applet），全称Java Servlet，未有中文译文。是用Java编写的服务器端程序。其主要功能在于 交互式地浏览和修改数据，生成动态Web内容。 狭义的Servlet是指Java语言实现的一个接口，广义的Servlet是指任何实现了这个Servlet接口的类，一般情况下，人们将Servlet理解为后者。 Servlet运">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet">
+<meta property="og:url" content="http://yoursite.com/2020/07/02/Servlet/index.html">
+<meta property="og:site_name" content="Lexie_W&#39;s World">
+<meta property="og:description" content="Servlet1. 什么是ServletServlet（Server Applet），全称Java Servlet，未有中文译文。是用Java编写的服务器端程序。其主要功能在于 交互式地浏览和修改数据，生成动态Web内容。 狭义的Servlet是指Java语言实现的一个接口，广义的Servlet是指任何实现了这个Servlet接口的类，一般情况下，人们将Servlet理解为后者。 Servlet运">
+<meta property="og:image" content="http://yoursite.com/images/Servlet/image-20200702203255042.png">
+<meta property="og:image" content="http://yoursite.com/images/Servlet/image-20200702203329608.png">
+<meta property="og:image" content="http://yoursite.com/images/Servlet/image-20200702203353091.png">
+<meta property="og:image" content="http://yoursite.com/images/Servlet/image-20200702203414720.png">
+<meta property="og:image" content="http://yoursite.com/images/Servlet/image-20200702203439847.png">
+<meta property="og:image" content="http://yoursite.com/images/Servlet/image-20200702203451765.png">
+<meta property="og:image" content="http://yoursite.com/images/Servlet/image-20200702203504410.png">
+<meta property="article:published_time" content="2020-07-01T17:41:16.518Z">
+<meta property="article:modified_time" content="2020-07-02T12:35:10.132Z">
+<meta property="article:author" content="Lexie_W">
+<meta property="article:tag" content="javaweb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/Servlet/image-20200702203255042.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Latte'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/02/Servlet/"/>
+
+
+
+
+
+  <title>Servlet | Lexie_W's World</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lexie_W's World</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/02/Servlet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lexie_W">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lexie_W's World">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Servlet</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-02T01:41:16+08:00">
+                2020-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  23
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h1><h2 id="1-什么是Servlet"><a href="#1-什么是Servlet" class="headerlink" title="1. 什么是Servlet"></a>1. 什么是Servlet</h2><p>Servlet（Server Applet），全称Java Servlet，未有中文译文。是用Java编写的<strong>服务器端程序</strong>。其<strong>主要功能</strong>在于<font color="red"> <strong>交互式地浏览和修改数据，生成动态Web内容。</strong></font></p>
+<p>狭义的Servlet是指Java语言实现的一个接口，广义的Servlet是指任何实现了这个Servlet接口的类，一般情况下，人们将Servlet理解为后者。</p>
+<p>Servlet运行于支持Java的应用服务器中。从实现上讲，Servlet可以响应任何类型的请求，但绝大多数情况下Servlet只用来扩展基于HTTP协议的Web服务器。</p>
+<h2 id="2-Servlet的工作模式"><a href="#2-Servlet的工作模式" class="headerlink" title="2. Servlet的工作模式"></a>2. Servlet的工作模式</h2><ol>
+<li>客户端发送请求至服务器</li>
+<li>服务器启动并调用Servlet，Servlet根据客户端请求生成响应内容并将其传给服务器</li>
+<li>服务器将响应返回客户端</li>
+</ol>
+<h2 id="3-Servlet-API-概览"><a href="#3-Servlet-API-概览" class="headerlink" title="3.Servlet API 概览"></a>3.Servlet API 概览</h2><p>Servlet API 包含以下4个Java包：</p>
+<ul>
+<li>1.javax.servlet   其中包含定义servlet和servlet容器之间契约的类和接口。</li>
+<li>2.javax.servlet.http   其中包含定义HTTP Servlet 和Servlet容器之间的关系。</li>
+<li>3.javax.servlet.annotation   其中包含标注servlet,Filter,Listener的标注。它还为被标注元件定义元数据。</li>
+<li>4.javax.servlet.descriptor，其中包含提供程序化登录Web应用程序的配置信息的类型。</li>
+</ul>
+<h2 id="4-Servlet的主要类型"><a href="#4-Servlet的主要类型" class="headerlink" title="4.Servlet的主要类型"></a>4.Servlet的主要类型</h2><p><img src="/../images/Servlet/image-20200702203255042.png" alt="image-20200702203255042"></p>
+<h2 id="4-Servlet-的使用方法"><a href="#4-Servlet-的使用方法" class="headerlink" title="4.Servlet 的使用方法"></a>4.Servlet 的使用方法</h2><p>Servlet技术的核心是Servlet，<strong><em>\</em>它是所有Servlet类必须直接或者间接实现的一个接口**</strong>。在编写实现Servlet的Servlet类时，直接实现它。在扩展实现这个这个接口的类时，间接实现它。</p>
+<h2 id="5-Servlet-的工作原理"><a href="#5-Servlet-的工作原理" class="headerlink" title="5.Servlet 的工作原理"></a>5.Servlet 的工作原理</h2><p>Servlet接口定义了Servlet与servlet容器之间的契约。这个契约是：Servlet容器将Servlet类载入内存，并产生Servlet实例和调用它具体的方法。但是要注意的是，<font color="red"><strong>在一个应用程序中，每种Servlet类型只能有一个实例。</strong></font></p>
+<p>用户请求致使Servlet容器调用Servlet的Service()方法，并传入一个ServletRequest对象和一个ServletResponse对象。ServletRequest对象和ServletResponse对象都是由Servlet容器（例如TomCat）封装好的，并不需要程序员去实现，程序员可以直接使用这两个对象。</p>
+<p>ServletRequest中封装了当前的Http请求，因此，开发人员不必解析和操作原始的Http数据</p>
+<p>ServletResponse表示当前用户的Http响应，程序员只需直接操作ServletResponse对象就能把响应轻松的发回给用户。</p>
+<p>对于每一个应用程序，<font color="red"><strong>Servlet容器还会创建一个ServletContext对象。这个对象中封装了上下文（应用程序）的环境详情。每个应用程序只有一个ServletContext。每个Servlet对象也都有一个封装Servlet配置的ServletConfig对象。</strong></font></p>
+<h2 id="6-Servlet-接口中定义的方法"><a href="#6-Servlet-接口中定义的方法" class="headerlink" title="6.Servlet 接口中定义的方法"></a>6.Servlet 接口中定义的方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Servlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig var1)</span> <span class="keyword">throws</span> ServletException</span>;</span><br><span class="line">    <span class="function">ServletConfig <span class="title">getServletConfig</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest var1, ServletResponse var2)</span> <span class="keyword">throws</span> ServletException, IOException</span>;</span><br><span class="line">    <span class="function">String <span class="title">getServletInfo</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Servlet-的生命周期"><a href="#7-Servlet-的生命周期" class="headerlink" title="7.Servlet 的生命周期"></a>7.Servlet 的生命周期</h2><p>其中，init( ),service( ),destroy( )是Servlet生命周期的方法。代表了Servlet从“出生”到“工作”再到“死亡 ”的过程。Servlet容器（例如TomCat）会根据下面的规则来调用这三个方法：</p>
+<ul>
+<li>1.init( )———-当Servlet第一次被请求时，我们可以利用init（ ）方法来执行相应的初始化工作。调用这个方法时，Servlet容器会传入一个ServletConfig对象进来从而对Servlet对象进行初始化。</li>
+<li>2.service( )——每当请求Servlet时，Servlet容器就会调用这个方法。第一次请求时，Servlet容器会先调用init( )方法初始化一个Servlet对象出来，然后会调用它的service( )方法进行工作，但在后续的请求中，Servlet容器只会调用service方法了。</li>
+<li>3.destory——–当要销毁Servlet时，Servlet容器就会调用这个方法。在卸载应用程序或者关闭Servlet容器时，就会发生这种情况，一般在这个方法中会写一些清除代码。</li>
+</ul>
+<h2 id="8-Servlet-的其它两个方法"><a href="#8-Servlet-的其它两个方法" class="headerlink" title="8.Servlet 的其它两个方法"></a>8.Servlet 的其它两个方法</h2><ol>
+<li>String  getServletInfo（ ），这个方法会返回Servlet的一段描述，可以返回一段字符串。</li>
+<li>ServletConfig getServletConfig（ ），这个方法会返回由Servlet容器传给init（ ）方法的ServletConfig对象。</li>
+</ol>
+<h2 id="9-ServletRequset接口"><a href="#9-ServletRequset接口" class="headerlink" title="9.ServletRequset接口"></a>9.ServletRequset接口</h2><p>Servlet容器对于接受到的每一个Http请求，都会创建一个ServletRequest对象，并把这个对象传递给Servlet的sevice( )方法。其中，ServletRequest对象内封装了关于这个请求的许多详细信息。</p>
+<p>让我们来看一看ServletRequest接口的部分内容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ServletRequest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getContentLength</span><span class="params">()</span></span>;<span class="comment">//返回请求主体的字节数</span></span><br><span class="line">    <span class="function">String <span class="title">getContentType</span><span class="params">()</span></span>;<span class="comment">//返回主体的MIME类型</span></span><br><span class="line">    <span class="function">String <span class="title">getParameter</span><span class="params">(String var1)</span></span>;<span class="comment">//返回请求参数的值.它是在ServletRequest中最常用的方法，可用于获取查询字符串的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="10-ServletResponse接口"><a href="#10-ServletResponse接口" class="headerlink" title="10.ServletResponse接口"></a>10.ServletResponse接口</h2><p>   javax.servlet.ServletResponse接口表示一个Servlet响应，在调用Servlet的service( )方法前，Servlet容器会先创建一个ServletResponse对象，并把它作为第二个参数传给service( )方法。ServletResponse隐藏了向浏览器发送响应的复杂过程。</p>
+<p>让我们也来看看ServletResponse内部定义了哪些方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ServletResponse</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">getCharacterEncoding</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">String <span class="title">getContentType</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line"><span class="function">ServletOutputStream <span class="title">getOutputStream</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"><span class="function">PrintWriter <span class="title">getWriter</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;<span class="comment">//返回了一个可以向客户端发送文本的PrintWriter对象。</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setCharacterEncoding</span><span class="params">(String var1)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setContentLength</span><span class="params">(<span class="keyword">int</span> var1)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setContentType</span><span class="params">(String var1)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setBufferSize</span><span class="params">(<span class="keyword">int</span> var1)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getBufferSize</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">flushBuffer</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">resetBuffer</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isCommitted</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setLocale</span><span class="params">(Locale var1)</span></span>;</span><br><span class="line"><span class="function">Locale <span class="title">getLocale</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中的getWriter方法，它返回了一个可以向客户端发送文本的的Java.io.PrintWriter对象。默认情况下，<font color="red"><strong>PrintWriter对象使用ISO-8859-1编码（该编码在输入中文时会发生乱码）。</strong></font></p>
+<p>在向客户端发送响应时，大多数都是使用该对象向客户端发送HTML。</p>
+<p> 还有一个方法也可以用来向浏览器发送数据，它就是getOutputStream，从名字就可以看出这是一个二进制流对象，因此这个方法是用来发送<strong>二进制数据</strong>的。</p>
+<p>在发送任何HTML之前，应该先调用setContentType（）方法，设置响应的内容类型，并将“text/html”作为一个参数传入，这是在告诉浏览器响应的内容类型为HTML，需要以HTML的方法解释响应内容而不是普通的文本，或者也可以加上“charset=UTF-8”改变响应的编码方式以防止发生中文乱码现象。</p>
+<h2 id="11-ServletConfig接口"><a href="#11-ServletConfig接口" class="headerlink" title="11.ServletConfig接口"></a>11.ServletConfig接口</h2><p>当Servlet容器初始化Servlet时，Servlet容器会给Servlet的init( )方式传入一个ServletConfig对象。</p>
+<p>其中几个方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">getServletName</span><span class="params">()</span></span>;<span class="comment">//获得Servlet在web. xml中配置的name的值.</span></span><br><span class="line"><span class="function">String <span class="title">getInitParameter</span> <span class="params">(String name)</span></span>;<span class="comment">//获得Servlet的初始化参数.</span></span><br><span class="line"><span class="function">Enumeration <span class="title">getInitParameterNames</span><span class="params">()</span></span>;<span class="comment">//获得所有Servlet的初始化参数的名称.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="12-ServletContext对象"><a href="#12-ServletContext对象" class="headerlink" title="12.ServletContext对象"></a>12.ServletContext对象</h2><p><font color="red"><strong>ServletContext对象表示Servlet应用程序。</strong></font>每个Web应用程序都只有一个ServletContext对象。在将一个应用程序同时部署到多个容器的分布式环境中，每台Java虚拟机上的Web应用都会有一个ServletContext对象。</p>
+<p>通过在ServletConfig中调用getServletContext方法，也可以获得ServletContext对象。</p>
+<p>那么为什么要存在一个ServletContext对象呢？存在肯定是有它的道理，<font color="red"><strong>因为有了ServletContext对象，就可以共享从应用程序中的所有资料处访问到的信息，并且可以动态注册Web对象。前者将对象保存在ServletContext中的一个内部Map中。保存在ServletContext中的对象被称作属性。</strong></font></p>
+<p>ServletContext中的下列方法负责处理属性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Object <span class="title">getAttribute</span><span class="params">(String var1)</span></span>;</span><br><span class="line"><span class="function">Enumeration&lt;String&gt; <span class="title">getAttributeNames</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setAttribute</span><span class="params">(String var1, Object var2)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">removeAttribute</span><span class="params">(String var1)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="13-GenericServlet抽象类"><a href="#13-GenericServlet抽象类" class="headerlink" title="13.GenericServlet抽象类"></a>13.GenericServlet抽象类</h2><p>​    前面我们编写Servlet一直是通过实现Servlet接口来编写的，但是，使用这种方法，则必须要实现Servlet接口中定义的所有的方法，即使有一些方法中没有任何东西也要去实现，并且还需要自己手动的维护ServletConfig这个对象的引用。因此，这样去实现Servlet是比较麻烦的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig var1)</span> <span class="keyword">throws</span> ServletException</span>;</span><br></pre></td></tr></table></figure>
+
+<p>​    幸好，GenericServlet抽象类的出现很好的解决了这个问题。本着尽可能使代码简洁的原则，GenericServlet实现了Servlet和ServletConfig接口，下面是GenericServlet抽象类的具体代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericServlet</span> <span class="keyword">implements</span> <span class="title">Servlet</span>, <span class="title">ServletConfig</span>, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String LSTRING_FILE = <span class="string">"javax.servlet.LocalStrings"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ResourceBundle lStrings = ResourceBundle.getBundle(<span class="string">"javax.servlet.LocalStrings"</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> ServletConfig config;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GenericServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getInitParameter</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        ServletConfig sc = <span class="keyword">this</span>.getServletConfig();</span><br><span class="line">        <span class="keyword">if</span> (sc == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(lStrings.getString(<span class="string">"err.servlet_config_not_initialized"</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> sc.getInitParameter(name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Enumeration&lt;String&gt; <span class="title">getInitParameterNames</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ServletConfig sc = <span class="keyword">this</span>.getServletConfig();</span><br><span class="line">        <span class="keyword">if</span> (sc == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(lStrings.getString(<span class="string">"err.servlet_config_not_initialized"</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> sc.getInitParameterNames();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletConfig <span class="title">getServletConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.config;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletContext <span class="title">getServletContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ServletConfig sc = <span class="keyword">this</span>.getServletConfig();</span><br><span class="line">        <span class="keyword">if</span> (sc == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(lStrings.getString(<span class="string">"err.servlet_config_not_initialized"</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> sc.getServletContext();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getServletInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.config = config;</span><br><span class="line">        <span class="keyword">this</span>.init();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.getServletContext().log(<span class="keyword">this</span>.getServletName() + <span class="string">": "</span> + msg);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String message, Throwable t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.getServletContext().log(<span class="keyword">this</span>.getServletName() + <span class="string">": "</span> + message, t);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest var1, ServletResponse var2)</span> <span class="keyword">throws</span> ServletException, IOException</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getServletName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ServletConfig sc = <span class="keyword">this</span>.getServletConfig();</span><br><span class="line">        <span class="keyword">if</span> (sc == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(lStrings.getString(<span class="string">"err.servlet_config_not_initialized"</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> sc.getServletName();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    其中，GenericServlet抽象类相比于直接实现Servlet接口，有以下几个好处：</p>
+<ul>
+<li>1.为Servlet接口中的所有方法提供了默认的实现，则程序员需要什么就直接改什么，不再需要把所有的方法都自己实现了。</li>
+<li>2.提供方法，包围ServletConfig对象中的方法。</li>
+<li>3.将init( )方法中的ServletConfig参数赋给了一个内部的ServletConfig引用从而来保存ServletConfig对象，不需要程序员自己去维护ServletConfig了。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.config = config;</span><br><span class="line">    <span class="keyword">this</span>.init();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是，我们发现在GenericServlet抽象类中还存在着另一个没有任何参数的Init()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设计者的初衷到底是为了什么呢？在第一个带参数的init（）方法中就已经把ServletConfig对象传入并且通过引用保存好了，完成了Servlet的初始化过程，那么为什么后面还要加上一个不带任何参数的init（）方法呢？</p>
+<p>我们知道，抽象类是无法直接产生实例的，需要另一个类去继承这个抽象类，那么就会发生方法覆盖的问题，如果在类中覆盖了GenericServlet抽象类的init（）方法，那么程序员就必须手动的去维护ServletConfig对象了，还得调用super.init(servletConfig）方法去调用父类GenericServlet的初始化方法来保存ServletConfig对象，这样会给程序员带来很大的麻烦。GenericServlet提供的第二个不带参数的init( )方法，就是为了解决上述问题的。</p>
+<p>这个不带参数的init（）方法，是在ServletConfig对象被赋给ServletConfig引用后，由第一个带参数的init(ServletConfig servletconfig)方法调用的，那么这意味着，当程序员如果需要覆盖这个GenericServlet的初始化方法，则只需要覆盖那个不带参数的init( )方法就好了，此时，servletConfig对象仍然有GenericServlet保存着。</p>
+<p>说了这么多，通过扩展GenericServlet抽象类，就不需要覆盖没有计划改变的方法。因此，代码将会变得更加的简洁，程序员的工作也会减少很多。</p>
+<p>然而，虽然GenricServlet是对Servlet一个很好的加强，但是也不经常用，因为他不像HttpServlet那么高级。HttpServlet才是主角，在现实的应用程序中被广泛使用。那么我们接下来就看看传说中的HttpServlet到底厉害在哪里吧。</p>
+<h2 id="14-javax-servlet-http包内容"><a href="#14-javax-servlet-http包内容" class="headerlink" title="14.javax.servlet.http包内容"></a>14.javax.servlet.http包内容</h2><p>之所以所HttpServlet要比GenericServlet强大，其实也是有道理的。HttpServlet是由GenericServlet抽象类扩展而来的，HttpServlet抽象类的声明如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpServlet</span> <span class="keyword">extends</span> <span class="title">GenericServlet</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
+
+<p>HttpServlet之所以运用广泛的另一个原因是现在大部分的应用程序都要与HTTP结合起来使用。这意味着我们可以利用HTTP的特性完成更多更强大的任务。Javax.servlet.http包是Servlet API中的第二个包，其中包含了用于编写Servlet应用程序的类和接口。Javax.servlet.http中的许多类型都覆盖了Javax.servlet中的类型。</p>
+<p><img src="/../images/Servlet/image-20200702203329608.png" alt="image-20200702203329608"></p>
+<h2 id="15-HttpServlet抽象类"><a href="#15-HttpServlet抽象类" class="headerlink" title="15.HttpServlet抽象类"></a>15.HttpServlet抽象类</h2><p>​    HttpServlet抽象类是继承于GenericServlet抽象类而来的。使用HttpServlet抽象类时，还需要借助分别代表Servlet请求和Servlet响应的HttpServletRequest和HttpServletResponse对象。</p>
+<p>HttpServletRequest接口扩展于javax.servlet.ServletRequest接口，HttpServletResponse接口扩展于javax.servlet.servletResponse接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HttpServletRequest</span> <span class="keyword">extends</span> <span class="title">ServletRequest</span></span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">interface</span> <span class="title">HttpServletResponse</span> <span class="keyword">extends</span> <span class="title">ServletResponse</span></span></span><br></pre></td></tr></table></figure>
+
+<p>HttpServlet抽象类覆盖了GenericServlet抽象类中的Service( )方法，并且添加了一个自己独有的Service(HttpServletRequest request，HttpServletResponse方法:</p>
+<p>首先来看GenericServlet抽象类中是如何定义service方法的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest var1, ServletResponse var2)</span> <span class="keyword">throws</span> ServletException, IOException</span>;</span><br></pre></td></tr></table></figure>
+
+<p> 我们看到是一个抽象方法，也就是HttpServlet要自己去实现这个service方法，我们在看看HttpServlet是怎么覆盖这个service方法的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest req, ServletResponse res)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">    HttpServletRequest request;</span><br><span class="line">    HttpServletResponse response;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        request = (HttpServletRequest)req;</span><br><span class="line">        response = (HttpServletResponse)res;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassCastException var6) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ServletException(<span class="string">"non-HTTP request or response"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.service(request, response);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>   我们发现，HttpServlet中的service方法把接收到的ServletRequsest类型的对象转换成了HttpServletRequest类型的对象，把ServletResponse类型的对象转换成了HttpServletResponse类型的对象。之所以能够这样强制的转换，<font color="red"><strong>是因为在调用Servlet的Service方法时，Servlet容器总会传入一个HttpServletRequest对象和HttpServletResponse对象，预备使用HTTP。</strong></font>因此，转换类型当然不会出错了。</p>
+<p>转换之后，service方法把两个转换后的对象传入了另一个service方法，那么我们再来看看这个方法是如何实现的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">    String method = req.getMethod();</span><br><span class="line">    <span class="keyword">long</span> lastModified;</span><br><span class="line">    <span class="keyword">if</span> (method.equals(<span class="string">"GET"</span>)) &#123;</span><br><span class="line">        lastModified = <span class="keyword">this</span>.getLastModified(req);</span><br><span class="line">        <span class="keyword">if</span> (lastModified == -<span class="number">1L</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.doGet(req, resp);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">long</span> ifModifiedSince = req.getDateHeader(<span class="string">"If-Modified-Since"</span>);</span><br><span class="line">            <span class="keyword">if</span> (ifModifiedSince &lt; lastModified) &#123;</span><br><span class="line">                <span class="keyword">this</span>.maybeSetLastModified(resp, lastModified);</span><br><span class="line">                <span class="keyword">this</span>.doGet(req, resp);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                resp.setStatus(<span class="number">304</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"HEAD"</span>)) &#123;</span><br><span class="line">        lastModified = <span class="keyword">this</span>.getLastModified(req);</span><br><span class="line">        <span class="keyword">this</span>.maybeSetLastModified(resp, lastModified);</span><br><span class="line">        <span class="keyword">this</span>.doHead(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"POST"</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"PUT"</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doPut(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"DELETE"</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doDelete(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"OPTIONS"</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doOptions(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equals(<span class="string">"TRACE"</span>)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doTrace(req, resp);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        String errMsg = lStrings.getString(<span class="string">"http.method_not_implemented"</span>);</span><br><span class="line">        Object[] errArgs = <span class="keyword">new</span> Object[]&#123;method&#125;;</span><br><span class="line">        errMsg = MessageFormat.format(errMsg, errArgs);</span><br><span class="line">        resp.sendError(<span class="number">501</span>, errMsg);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 我们发现，这个service方法的参数是HttpServletRequest对象和HttpServletResponse对象，刚好接收了上一个service方法传过来的两个对象。</p>
+<p>接下来我们再看看service方法是如何工作的，我们会发现在service方法中还是没有任何的服务逻辑，但是却在解析HttpServletRequest中的方法参数，并调用以下方法之一：doGet,doPost,doHead,doPut,doTrace,doOptions和doDelete。这7种方法中，每一种方法都表示一个Http方法。doGet和doPost是最常用的。所以，如果我们需要实现具体的服务逻辑，不再需要覆盖service方法了，只需要覆盖doGet或者doPost就好了。</p>
+<p><font color="red"><strong>总之，HttpServlet有两个特性是GenericServlet所不具备的：</strong></font></p>
+<p>1.不用覆盖service方法，而是覆盖doGet或者doPost方法。少数情况下,还会覆盖其他的5个方法。</p>
+<p>2.使用的是HttpServletRequest和HttpServletResponse对象。</p>
+<h2 id="16-HttpServletRequest接口"><a href="#16-HttpServletRequest接口" class="headerlink" title="16.HttpServletRequest接口"></a>16.HttpServletRequest接口</h2><p>HttpServletRequest表示Http环境中的Servlet请求。它扩展于javax.servlet.ServletRequest接口，并添加了几个方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">getContextPath</span><span class="params">()</span></span>;<span class="comment">//返回请求上下文的请求URI部分</span></span><br><span class="line">Cookie[] getCookies();<span class="comment">//返回一个cookie对象数组</span></span><br><span class="line"><span class="function">String <span class="title">getHeader</span><span class="params">(String var1)</span></span>;<span class="comment">//返回指定HTTP标题的值</span></span><br><span class="line"><span class="function">String <span class="title">getMethod</span><span class="params">()</span></span>;<span class="comment">//返回生成这个请求HTTP的方法名称</span></span><br><span class="line"><span class="function">String <span class="title">getQueryString</span><span class="params">()</span></span>;<span class="comment">//返回请求URL中的查询字符串</span></span><br><span class="line"><span class="function">HttpSession <span class="title">getSession</span><span class="params">()</span></span>;<span class="comment">//返回与这个请求相关的会话对象</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="17-HttpServletRequest内封装的请求"><a href="#17-HttpServletRequest内封装的请求" class="headerlink" title="17.HttpServletRequest内封装的请求"></a>17.HttpServletRequest内封装的请求</h2><p>​    Request代表请求，所以我们可以通过该对象分别获得HTTP请求的请求行，请求头和请求体。</p>
+<p><img src="/../images/Servlet/image-20200702203353091.png" alt="image-20200702203353091"></p>
+<h3 id="17-1通过request获得请求行"><a href="#17-1通过request获得请求行" class="headerlink" title="17.1通过request获得请求行"></a>17.1通过request获得请求行</h3><p>假设查询字符串为：username=zhangsan&amp;password=123</p>
+<p>获得客户端的请求方式：String getMethod()</p>
+<p>获得请求的资源：</p>
+<p>String getRequestURI()</p>
+<p>StringBuffer getRequestURL()</p>
+<p>String getContextPath() —web应用的名称</p>
+<p>String getQueryString() —- get提交url地址后的参数字符串</p>
+<h3 id="17-2通过request获得请求头"><a href="#17-2通过request获得请求头" class="headerlink" title="17.2通过request获得请求头"></a>17.2通过request获得请求头</h3><p>long getDateHeader(String name)</p>
+<p>String getHeader(String name)</p>
+<p>Enumeration getHeaderNames()</p>
+<p>Enumeration getHeaders(String name)</p>
+<p>int getIntHeader(String name)</p>
+<p>referer头的作用：执行该此访问的的来源，做防盗链</p>
+<h3 id="17-3通过request获得请求体"><a href="#17-3通过request获得请求体" class="headerlink" title="17.3通过request获得请求体"></a>17.3通过request获得请求体</h3><p>请求体中的内容是通过post提交的请求参数，格式是：</p>
+<p>username=zhangsan&amp;password=123&amp;hobby=football&amp;hobby=basketball</p>
+<p>key ———————- value</p>
+<p>username                              [zhangsan]</p>
+<p>password                              [123]</p>
+<p>hobby                                     [football，basketball]                                       </p>
+<p>以上面参数为例，通过以下方法获得请求参数：</p>
+<p>String getParameter(String name)</p>
+<p>String[] getParameterValues(String name)</p>
+<p>Enumeration getParameterNames()</p>
+<p>Map&lt;String,String[]&gt; getParameterMap()</p>
+<pre><code>注意：get请求方式的请求参数 上述的方法一样可以获得。</code></pre><h2 id="18-Request乱码问题的解决方法"><a href="#18-Request乱码问题的解决方法" class="headerlink" title="18.Request乱码问题的解决方法"></a>18.Request乱码问题的解决方法</h2><p>​    在前面我们讲过，在service中使用的编码解码方式默认为：ISO-8859-1编码，但此编码并不支持中文，因此会出现乱码问题，所以我们需要手动修改编码方式为UTF-8编码，才能解决中文乱码问题:</p>
+<ol>
+<li>解决post提交方式的乱码：request.setCharacterEncoding(“UTF-8”);</li>
+<li>解决get提交的方式的乱码：parameter = newString(parameter.getbytes(“iso8859-1”),”utf-8”); </li>
+</ol>
+<h2 id="19-HttpServletResponse接口"><a href="#19-HttpServletResponse接口" class="headerlink" title="19.HttpServletResponse接口"></a>19.HttpServletResponse接口</h2><p>在Service API中，定义了一个HttpServletResponse接口，它继承自ServletResponse接口，专门用来封装HTTP响应消息。    由于HTTP请求消息分为状态行，响应消息头，响应消息体三部分，因此，在HttpServletResponse接口中定义了向客户端发送响应状态码，响应消息头，响应消息体的方法。</p>
+<h3 id="19-1HttpServletResponse内封装的响应"><a href="#19-1HttpServletResponse内封装的响应" class="headerlink" title="19.1HttpServletResponse内封装的响应"></a>19.1HttpServletResponse内封装的响应</h3><p><img src="/../images/Servlet/image-20200702203414720.png" alt="image-20200702203414720"></p>
+<h3 id="19-2通过Response设置响应"><a href="#19-2通过Response设置响应" class="headerlink" title="19.2通过Response设置响应"></a>19.2通过Response设置响应</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addCookie</span><span class="params">(Cookie var1)</span></span>;<span class="comment">//给这个响应添加一个cookie</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addHeader</span><span class="params">(String var1, String var2)</span></span>;<span class="comment">//给这个请求添加一个响应头</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sendRedirect</span><span class="params">(String var1)</span> <span class="keyword">throws</span> IOException</span>;<span class="comment">//发送一条响应码，讲浏览器跳转到指定的位置</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setStatus</span><span class="params">(<span class="keyword">int</span> var1)</span></span>;<span class="comment">//设置响应行的状态码</span></span><br><span class="line"></span><br><span class="line">addHeader(String name, String value)</span><br><span class="line">addIntHeader(String name, <span class="keyword">int</span> value)</span><br><span class="line">addDateHeader(String name, <span class="keyword">long</span> date)</span><br><span class="line">setHeader(String name, String value)</span><br><span class="line">setDateHeader(String name, <span class="keyword">long</span> date)</span><br><span class="line">setIntHeader(String name, <span class="keyword">int</span> value)</span><br></pre></td></tr></table></figure>
+
+<p>其中，add表示添加，而set表示设置</p>
+<p>PrintWriter getWriter()</p>
+<p>获得字符流，通过字符流的write(String s)方法可以将字符串设置到response缓冲区中，随后Tomcat会将response缓冲区中的内容组装成Http响应返回给浏览器端。</p>
+<p>ServletOutputStream getOutputStream()</p>
+<p>获得字节流，通过该字节流的write(byte[] bytes)可以向response缓冲区中写入字节(二进制数据)，再由Tomcat服务器将字节内容组成Http响应返回给浏览器。</p>
+<p><font color="red"><strong>注意：虽然response对象的getOutSream（）和getWriter（）方法都可以发送响应消息体，但是他们之间相互排斥，不可以同时使用，否则会发生异常.</strong></font></p>
+<h3 id="19-3Response的乱码问题"><a href="#19-3Response的乱码问题" class="headerlink" title="19.3Response的乱码问题"></a>19.3Response的乱码问题</h3><p>原因：response缓冲区的默认编码是iso8859-1，此码表中没有中文。所以需要更改response的编码方式：<img src="/../images/Servlet/image-20200702203439847.png" alt="image-20200702203439847"></p>
+<h3 id="19-4-Response的工作流程"><a href="#19-4-Response的工作流程" class="headerlink" title="19.4 Response的工作流程"></a>19.4 Response的工作流程</h3><p><img src="/../images/Servlet/image-20200702203451765.png" alt="image-20200702203451765"></p>
+<h2 id="20-Servlet的工作流程"><a href="#20-Servlet的工作流程" class="headerlink" title="20.Servlet的工作流程"></a>20.Servlet的工作流程</h2><p><img src="/../images/Servlet/image-20200702203504410.png" alt="image-20200702203504410"></p>
+<h2 id="21-ServletContextListener（Servlet全局监听器）"><a href="#21-ServletContextListener（Servlet全局监听器）" class="headerlink" title="21. ServletContextListener（Servlet全局监听器）"></a>21. ServletContextListener（Servlet全局监听器）</h2><p>首先要说明的是，ServletContextListener是一个接口，我们随便写一个类，只要这个类实现了ServletContextListener接口，那么这个类就实现了【监听ServletContext】的功能。那么，这个神奇的接口是如何定义的呢？我们来看一下这个接口的内部情况：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> javax.servlet;</span><br><span class="line"><span class="keyword">import</span> java.util.EventListener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ServletContextListener</span> <span class="keyword">extends</span> <span class="title">EventListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">contextInitialized</span><span class="params">(ServletContextEvent var1)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">contextDestroyed</span><span class="params">(ServletContextEvent var1)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们发现，在这个接口中只声明了两个方法，分别是void contextInitialized(ServletContextEvent var1)和void contextDestroyed(ServletContextEvent var1)方法，所以，我们很容易的就能猜测到，ServletContext的生命只有两种，分别是：</p>
+<p>1.ServletContext初始化。（应用start时）———-&gt;Servlet容器调用void contextInitialized(ServletContextEvent var1)</p>
+<p>2.ServletContext销毁。（应用stop时）———-&gt;Servlet容器调用 void contextDestroyed(ServletContextEvent var1)</p>
+<p>因此，我们大概能够猜到ServletContextListener的工作机制了，当应用启动时，ServletContext进行初始化，然后Servlet容器会自动调用正在监听ServletContext的ServletContextListener的void contextInitialized(ServletContextEvent var1)方法，并向其传入一个ServletContextEvent对象。当应用停止时，ServletContext被销毁，此时Servlet容器也会自动地调用正在监听ServletContext的ServletContextListener的void contextDestroyed(ServletContextEvent var1)方法。</p>
+<h2 id="22-【进阶】ServletContextListener在Spring中的应用"><a href="#22-【进阶】ServletContextListener在Spring中的应用" class="headerlink" title="22.【进阶】ServletContextListener在Spring中的应用"></a>22.【进阶】ServletContextListener在Spring中的应用</h2><p>Spring容器是如何借用ServletContextListener这个接口来实例化的。</p>
+<p>首先让我们再来回顾一下ServletContext的概念，ServletContext翻译成中文叫做“Servlet上下文”或者“Servlet全局”，其实ServletContext就是一个“域对象”，它存在于整个应用中，并在在整个应用中有且仅有1份，它表示了当前整个应用的“状态”，你也可以理解为某个时刻的ServletContext代表了这个应用在某个时刻的“一张快照”，这张“快照”里面包含了有关应用的许多信息，应用的所有组件都可以从ServletContext获取当前应用的状态信息。ServletContext随着程序的启动而创建，随着程序的停止而销毁。通俗点说，我们可以往这个ServletContext域对象中“存东西”，然后也可以在别的地方中“取出来”。</p>
+<p>我们知道，Spring容器可以通过：</p>
+<p>ApplicationContext ctx=new ClassPathXmlApplicationContext(“配置文件的路径”）;</p>
+<p>显示地实例化一个Spring IOC容器。也可以像下面一样，在web.xml中注册Spring IOC容器</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;listener&gt;</span><br><span class="line">    &lt;listener-<span class="class"><span class="keyword">class</span>&gt;<span class="title">org</span>.<span class="title">springframework</span>.<span class="title">web</span>.<span class="title">context</span>.<span class="title">ContextLoaderListener</span>&lt;/<span class="title">listener</span>-<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">&lt;/<span class="title">listener</span>&gt;</span></span><br><span class="line"><span class="class">&lt;<span class="title">context</span>-<span class="title">param</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">contextConfigLocation</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;<span class="title">param</span>-<span class="title">value</span>&gt;</span></span><br><span class="line">        classpath:applicationContext.xml</span><br><span class="line">    &lt;/param-value&gt;</span><br><span class="line">&lt;/context-param&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其中的监听器类【org.springframework.web.context.ContextLoaderListener】实现了ServletContextListener接口，能够监听ServletContext的生命周期中的“初始化”和“销毁”。注意，这个【org.springframework.web.context.ContextLoaderListener】监听器类当然不是我们自己写的哦，是人家Spring团队写的，我们只要拿来用就行了。当然，别忘记导入相关的Jar包。（spring-web-4.2.4.RELEASE.jar）</p>
+<p>那么，Spring团队给我们提供的这个监听器类是如何实现：当ServletContext初始化后，Spring IOC容器也能跟着初始化的呢？怀着好奇心，让我们再来看一看【org.springframework.web.context.ContextLoaderListener】的内部实现情况吧。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.web.context;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletContextEvent;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletContextListener;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContextLoaderListener</span> <span class="keyword">extends</span> <span class="title">ContextLoader</span> <span class="keyword">implements</span> <span class="title">ServletContextListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ContextLoaderListener</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ContextLoaderListener</span><span class="params">(WebApplicationContext context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context);</span><br><span class="line">    &#125;</span><br><span class="line">--------------------------------------------------------重点关注下面这里哦！-----------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextInitialized</span><span class="params">(ServletContextEvent event)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.initWebApplicationContext(event.getServletContext());</span><br><span class="line">    &#125;</span><br><span class="line">--------------------------------------------------------重点关注上面这里哦！-----------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextDestroyed</span><span class="params">(ServletContextEvent event)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.closeWebApplicationContext(event.getServletContext());</span><br><span class="line">        ContextCleanupListener.cleanupAttributes(event.getServletContext());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们发现，【org.springframework.web.context.ContextLoaderListener】这个类实现了ServletContextListener接口中的两个方法，其中，当ServletContext初始化后， public void contextInitialized(ServletContextEvent event)方法被调用，接下来执行initWebApplicationContext(event.getServletContext())方法，但是我们发现这个方法并没有在这个类中声明</p>
+<p>分析到这一步，我们发现Spring容器在这个方法中被实例化了。接下来，就让我们整理一下整体的思路：</p>
+<p>当Servlet容器启动时，ServletContext对象被初始化，然后Servlet容器调用web.xml中注册的监听器的public void contextInitialized(ServletContextEvent event)方法，而在监听器中，调用了this.initWebApplicationContext(event.getServletContext())方法，在这个方法中实例化了Spring IOC容器。即ApplicationContext对象。</p>
+<p>因此，当ServletContext创建时我们可以创建applicationContext对象，当ServletContext销毁时，我们可以销毁applicationContext对象。这样applicationContext就和ServletContext“共生死了”。</p>
+<h2 id="原博客链接"><a href="#原博客链接" class="headerlink" title="原博客链接"></a>原博客链接</h2><p><a href="https://blog.csdn.net/qq_19782019/article/details/80292110?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/qq_19782019/article/details/80292110?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.nonecase</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javaweb/" rel="tag"># javaweb</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/02/Maven%E5%AD%A6%E4%B9%A0%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5%E5%90%88%E9%9B%86/" rel="next" title="Maven学习博客链接合集">
+                <i class="fa fa-chevron-left"></i> Maven学习博客链接合集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/02/SpringMVC/" rel="prev" title="SpringMVC">
+                SpringMVC <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="Lexie_W" />
+            
+              <p class="site-author-name" itemprop="name">Lexie_W</p>
+              <p class="site-description motion-element" itemprop="description">The world will exist without anyone</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet"><span class="nav-number">1.</span> <span class="nav-text">Servlet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是Servlet"><span class="nav-number">1.1.</span> <span class="nav-text">1. 什么是Servlet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Servlet的工作模式"><span class="nav-number">1.2.</span> <span class="nav-text">2. Servlet的工作模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Servlet-API-概览"><span class="nav-number">1.3.</span> <span class="nav-text">3.Servlet API 概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Servlet的主要类型"><span class="nav-number">1.4.</span> <span class="nav-text">4.Servlet的主要类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Servlet-的使用方法"><span class="nav-number">1.5.</span> <span class="nav-text">4.Servlet 的使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Servlet-的工作原理"><span class="nav-number">1.6.</span> <span class="nav-text">5.Servlet 的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Servlet-接口中定义的方法"><span class="nav-number">1.7.</span> <span class="nav-text">6.Servlet 接口中定义的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Servlet-的生命周期"><span class="nav-number">1.8.</span> <span class="nav-text">7.Servlet 的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Servlet-的其它两个方法"><span class="nav-number">1.9.</span> <span class="nav-text">8.Servlet 的其它两个方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-ServletRequset接口"><span class="nav-number">1.10.</span> <span class="nav-text">9.ServletRequset接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-ServletResponse接口"><span class="nav-number">1.11.</span> <span class="nav-text">10.ServletResponse接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-ServletConfig接口"><span class="nav-number">1.12.</span> <span class="nav-text">11.ServletConfig接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-ServletContext对象"><span class="nav-number">1.13.</span> <span class="nav-text">12.ServletContext对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-GenericServlet抽象类"><span class="nav-number">1.14.</span> <span class="nav-text">13.GenericServlet抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-javax-servlet-http包内容"><span class="nav-number">1.15.</span> <span class="nav-text">14.javax.servlet.http包内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-HttpServlet抽象类"><span class="nav-number">1.16.</span> <span class="nav-text">15.HttpServlet抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-HttpServletRequest接口"><span class="nav-number">1.17.</span> <span class="nav-text">16.HttpServletRequest接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-HttpServletRequest内封装的请求"><span class="nav-number">1.18.</span> <span class="nav-text">17.HttpServletRequest内封装的请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#17-1通过request获得请求行"><span class="nav-number">1.18.1.</span> <span class="nav-text">17.1通过request获得请求行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-2通过request获得请求头"><span class="nav-number">1.18.2.</span> <span class="nav-text">17.2通过request获得请求头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-3通过request获得请求体"><span class="nav-number">1.18.3.</span> <span class="nav-text">17.3通过request获得请求体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-Request乱码问题的解决方法"><span class="nav-number">1.19.</span> <span class="nav-text">18.Request乱码问题的解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-HttpServletResponse接口"><span class="nav-number">1.20.</span> <span class="nav-text">19.HttpServletResponse接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#19-1HttpServletResponse内封装的响应"><span class="nav-number">1.20.1.</span> <span class="nav-text">19.1HttpServletResponse内封装的响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-2通过Response设置响应"><span class="nav-number">1.20.2.</span> <span class="nav-text">19.2通过Response设置响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-3Response的乱码问题"><span class="nav-number">1.20.3.</span> <span class="nav-text">19.3Response的乱码问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-4-Response的工作流程"><span class="nav-number">1.20.4.</span> <span class="nav-text">19.4 Response的工作流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-Servlet的工作流程"><span class="nav-number">1.21.</span> <span class="nav-text">20.Servlet的工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-ServletContextListener（Servlet全局监听器）"><span class="nav-number">1.22.</span> <span class="nav-text">21. ServletContextListener（Servlet全局监听器）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-【进阶】ServletContextListener在Spring中的应用"><span class="nav-number">1.23.</span> <span class="nav-text">22.【进阶】ServletContextListener在Spring中的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原博客链接"><span class="nav-number">1.24.</span> <span class="nav-text">原博客链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lexie_W</span>
+
+  
+</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共23.9k字 |</span>
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  总访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
