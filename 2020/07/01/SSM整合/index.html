@@ -109,7 +109,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":"flase","scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -203,7 +203,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-varchive"></i> <br />
             
             归档
           </a>
@@ -283,6 +283,23 @@
 
 
 
+
+<script>
+
+	window.onload = function(){
+		var path = 'https://lexie1wxy.github.io/'; //这里要改成你博客的地址
+		var localhostItem = String(window.location).split(path)[1];
+		var LiNode = document.querySelectorAll('#menu > li > a')
+
+		for(var i = 0; i< LiNode.length;i++){
+			var item = String(LiNode[i].href).split(path)[1];
+			if(item == localhostItem && item != undefined){
+				LiNode[i].setAttribute('style','border-bottom:1px solid black');
+			}
+		}
+	};
+
+</script>
  </div>
     </header>
 
@@ -675,15 +692,14 @@
           <nav class="site-state motion-element">
 
             
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/%7C%7C%20archive">
-              
-                  <span class="site-state-item-count">9</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
+                          <div class="site-state-item site-state-posts">
+                            <a href="/archives">
+                              <span class="site-state-item-count">9</span>
+                              <span class="site-state-item-name">日志</span>
+                            </a>
+                          </div>
             
+
 
             
               
@@ -712,6 +728,41 @@
           
 
           
+
+          <!-- 添加近期文章 -->
+
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+      <div class="links-of-blogroll-title">
+        <!-- modify icon to fire by szw -->
+        <i class="fa fa-history fa-" aria-hidden="true"></i>
+        近期文章
+      </div>
+      <ul class="links-of-blogroll-list">
+        
+        
+          <li>
+            <a href="/2020/07/02/hexo%E8%BF%81%E7%A7%BB/" title="hexo迁移" target="_blank">hexo迁移</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/02/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0/" title="计算机组成原理(school)" target="_blank">计算机组成原理(school)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/02/TCP-IP/" title="TCP-IP(school)" target="_blank">TCP-IP(school)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/02/SpringMVC/" title="SpringMVC" target="_blank">SpringMVC</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/02/Servlet/" title="Servlet" target="_blank">Servlet</a>
+          </li>
+        
+      </ul>
+    </div>
+
 
           
           
@@ -742,6 +793,13 @@
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -808,11 +866,6 @@
       </div>
     </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
     
 
     

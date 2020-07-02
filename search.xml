@@ -789,6 +789,8 @@
 <li><code>git pull</code>从远程hexo分支拉取最新的环境文件到本地，可以理解为svn的更新操作。比如在公司写了博客，回家在电脑上也要写需要先执行这一步操作。</li>
 <li>文章写完，要发布时，需要先提交环境文件，再发布文章。按以下顺序执行命令：<code>git add .</code>、<code>git commit -m &quot;some descrption&quot;</code>、<code>git push origin hexo</code>、<code>hexo g -d</code>。</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.social %&#125;</span><br><span class="line">...</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>博客</category>
