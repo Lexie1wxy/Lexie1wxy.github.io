@@ -987,10 +987,10 @@
     <title>hexo迁移</title>
     <url>/2020/07/02/hexo%E8%BF%81%E7%A7%BB/</url>
     <content><![CDATA[<h4 id="怎么把环境文件托管到github"><a href="#怎么把环境文件托管到github" class="headerlink" title="怎么把环境文件托管到github"></a>怎么把环境文件托管到github</h4><ol>
-<li>github创建hexo分支，切换到hexo分支，<code>git clone</code>仓库到本地</li>
+<li>github创建hexo分支，切换到hexo分支，<code>git clone -b hexo 项目git地址</code>克隆仓库到本地</li>
 <li>此时本地会多出一个<code>username.github.io</code>文件夹，命令行<code>cd</code>进去，删除<code>.git</code>文件夹</li>
 <li>命令行<code>git add -A</code>把工作区的变化（包括已删除的文件）提交到暂存区（ps:<code>git add .</code>提交的变化不包括已删除的文件）。</li>
-<li>命令行<code>git commint -m &quot;some description&quot;</code>提交。</li>
+<li>命令行<code>git commit -m &quot;some description&quot;</code>提交。</li>
 <li>命令行<code>git push origin hexo</code>推送到远程hexo分支。此时刷下github，如果正常操作，hexo分支应该已经被清空了。</li>
 <li>复制本地<code>username.github.io</code>文件夹中的<code>.git</code>文件夹到hexo项目根目录下。此时，hexo项目已经变成了和远程hexo分支关联的本地仓库了。而<code>username.github.io</code>文件夹的使命到此为止，你可以把它删掉，因为我们只是把它作为一个“中转站”的角色。以后每次发布新文章或修改网站样式文件时，<code>git add 然后 git commit -m &quot;some description&quot;  然后git push origin hexo</code>即可把环境文件推送到hexo分支。然后再<code>hexo g -d</code>发布网站并推送静态文件到master分支。</li>
 </ol>
