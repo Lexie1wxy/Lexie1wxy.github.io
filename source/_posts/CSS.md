@@ -632,7 +632,7 @@ p{color:green;}
 
 ## 2元素分类--块级元素
 
-什么是块级元素？在html中<div>、 <p>、<h1>、<form>、<ul> 和 <li>就是块级元素。设置display:block就是将元素显示为块级元素。如下代码就是将行内元素a转换为块状元素，从而使用a元素具有块状元素特点。
+什么是块级元素？在html中< div>、 < p>、< h1>、< form>、< ul> 和 < li>就是块级元素。设置display:block就是将元素显示为块级元素。如下代码就是将行内元素a转换为块状元素，从而使用a元素具有块状元素特点。
 a{display:block;}
 块级元素特点：
 1、每个块级元素都从新的一行开始，并且其后的元素也另起一行。（一个块级元素独占一行）
@@ -641,7 +641,7 @@ a{display:block;}
 
 ## 3元素分类--行内元素
 
-在html中，<span>、<a>、<label>、<input>、 <img>、 <strong> 和<em>就是典型的行内元素（inline）元素。当然块状元素也可以通过代码display:inline将元素设置为行内元素。
+在html中，< span>、< a>、< label>、< input>、 < img>、 < strong> 和< em>就是典型的行内元素（inline）元素。当然块状元素也可以通过代码display:inline将元素设置为行内元素。
 行内元素特点：
 1、和其他元素都在一行上；
 2、元素的高度、宽度、行高及顶部和底部边距不可设置；
@@ -649,7 +649,7 @@ a{display:block;}
 
 ## 4元素分类--内联块状元素
 
-内联块状元素（inline-block）就是同时具备内联元素、块状元素的特点，代码display:inline-block就是将元素设置为内联块状元素。(css2.1新增)，<img>、<input>标签就是这种内联块状标签。
+内联块状元素（inline-block）就是同时具备内联元素、块状元素的特点，代码display:inline-block就是将元素设置为内联块状元素。(css2.1新增)，< img>、< input>标签就是这种内联块状标签。
 inline-block元素特点：
 1、和其他元素都在一行上；
 2、元素的高度、宽度、行高以及顶和底边距都可设置。
