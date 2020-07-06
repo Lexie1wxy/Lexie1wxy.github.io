@@ -102,7 +102,7 @@ selector {property: value;property: value;property: value;property: value;}
 
 #### 1 标签选择器
 
-标签选择器其实就是html代码中的标签。如的<html>、<body>、<h1>、<p>、<img>。
+标签选择器其实就是html代码中的标签。如的< html>、< body>、< h1>、< p>、< img>。
 
 例如下面代码：
 
