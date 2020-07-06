@@ -1,8 +1,8 @@
 ---
 title: JavaScript
 date: 2020-07-06 10:02:40
-tags:
-categories:[前端] [JavaScript]
+tags: [前端,JavaScript]
+categories:
 - web前端
 - JavaScript
 typora-root-url: ../_posts
