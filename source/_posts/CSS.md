@@ -1,7 +1,7 @@
 ---
 title: CSS
 date: 2020-07-05 16:10:51
-tags: [前端] [CSS]
+tags: [前端,CSS]
 categories: 
 - web前端
 - CSS
