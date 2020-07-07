@@ -29,7 +29,7 @@ Html和CSS、JavaScript的关系，学习web前端开发基础技术需要掌握
 
 就是把css代码直接写在现有的HTML标签中，如下面代码：
 
-```
+```css
 <p style="color:red">这里文字是红色。</p>
 
 <!-- css样式代码要写在style=""双引号中，如果有多条css样式代码设置可以写在一起，分号隔开。如下代码：-->
@@ -42,7 +42,7 @@ Html和CSS、JavaScript的关系，学习web前端开发基础技术需要掌握
 
 嵌入式css样式必须写在<style></style>之间，并且一般情况下嵌入式css样式写在<head></head>之间。
 
-```
+```css
 <head>
     ...
     <style type="text/css">
@@ -56,7 +56,7 @@ Html和CSS、JavaScript的关系，学习web前端开发基础技术需要掌握
 
 外联式：就是把css代码写一个单独的外部文件中，这个css样式文件以“.css”为扩展名，在<head>内（注意不是在<style>标签内）使用<link>标签将css样式文件链接到HTML文件内，如下面代码：
 
-```
+```css
 <link href="base.css" rel="stylesheet" type="text/css" />
 ```
 
@@ -67,7 +67,7 @@ Html和CSS、JavaScript的关系，学习web前端开发基础技术需要掌握
 
 如果非要写在<style>标签，可以这样
 
-```
+```css
 <head>
     ...
     <style type="text/css">
@@ -89,7 +89,7 @@ Html和CSS、JavaScript的关系，学习web前端开发基础技术需要掌握
 
 CSS 规则由两个主要的部分构成：选择器，以及一条或多条声明，形式如下：
 
-```
+```css
 selector {property: value;property: value;property: value;property: value;}
 ```
 
@@ -105,7 +105,7 @@ selector {property: value;property: value;property: value;property: value;}
 
 例如下面代码：
 
-```
+```css
 <html>
 <head>
 <style type="text/css">
@@ -125,7 +125,7 @@ h2 {color:silver;}
 
 例如，如果您想把很多元素显示为灰色，可以使用类似如下的规则：
 
-```
+```css
 body, h2, p, table, th, td, pre, strong, em 
 {font: 28px Verdana; color: white; background: black;}
 ```
@@ -136,7 +136,7 @@ body, h2, p, table, th, td, pre, strong, em
 
 **在 CSS 中，类选择器以一个点号显示：**
 
-```
+```css
 .类名 {text-align: center}
 ```
 
@@ -151,7 +151,7 @@ body, h2, p, table, th, td, pre, strong, em
 
 第三步：设置类选器css样式，如下：
 
-```
+```css
 .stress{color:red;}/*类前面要加入一个英文圆点*/
 <span>胆小如鼠</span>
 <span class="stress">胆小如鼠</span>
@@ -163,7 +163,7 @@ body, h2, p, table, th, td, pre, strong, em
 
 语法：#ID名{样式}（ID名不能以数字开头)
 
-```
+```css
 #Mycolor {color: yellow}
 <h3 id="Mycolor">H3</h3>
 ```
@@ -176,7 +176,7 @@ body, h2, p, table, th, td, pre, strong, em
 
 1、ID选择器只能在文档中使用一次。与类选择器不同，在一个HTML文档中，ID选择器只能使用一次，而且仅一次。而类选择器可以使用多次。
 
-```
+```css
 下面代码是正确的：
 <p>三年级时，我还是一个<span class="stress">胆小如鼠</span>的小女孩，上课从来不敢回答老师提出的问题，生怕回答错了老师会批评我。就一直没有这个<span class="stress">勇气</span>来回答老师提出的问题。</p>
 
@@ -186,7 +186,7 @@ body, h2, p, table, th, td, pre, strong, em
 
 2、可以使用类选择器词列表方法为一个元素同时设置多个样式。我们可以为一个元素同时设多个样式，但只可以用类选择器的方法实现，ID选择器是不可以的（不能使用 ID 词列表）。
 
-```
+```css
 <!--下面的代码是正确的-->
 .stress{
     color:red;
@@ -210,7 +210,7 @@ body, h2, p, table, th, td, pre, strong, em
 
 通用选择器是功能最强大的选择器，它使用一个（*）号指定，它的作用是匹配html中任意标签元素，如下使用下面代码使用html中任意标签元素字体颜色全部设置为红色：
 
-```
+```css
 * {color:red;}
 ```
 
@@ -218,7 +218,7 @@ body, h2, p, table, th, td, pre, strong, em
 
 ![image-20200705184339230](/../images/CSS/image-20200705184339230.png)
 
-````
+````css
 1.[title] & P[title]
         设置所有具有title属性的标签元素；
         设置所有具有title属性的P标签元素。
@@ -274,7 +274,7 @@ p[title]
 
 同时匹配两个或多个标签，用逗号隔开
 
-```
+```css
 p，a，div{color: yellow;}
 <p>段落</p>
 <a>link</a>
@@ -285,7 +285,7 @@ p，a，div{color: yellow;}
 
  **后代选择器（descendant selector）又称为包含选择器。后代选择器可以选择作为某元素后代的元素。**
 
-```
+```css
 匹配所有div标签里嵌套的P标签，之间用空格分隔。
 div p {color: yellow;}
   
@@ -303,7 +303,7 @@ div p {color: yellow;}
 
 即，它不能选择多重嵌套的子标签进行样式更改，只能更改指定的嵌套位置。
 
-```
+```css
 匹配所有div标签里嵌套的子P标签，之间用>分隔。
 div > p {color: yellow;}
   
@@ -317,7 +317,7 @@ div > p {color: yellow;}
 
 　　 匹配所有紧随div标签之后的同级标签P，之间用+分隔（只能匹配一个）。
 
-```
+```css
 div + p {color: yellow;}
   
 <div>div</div>
@@ -328,7 +328,7 @@ div + p {color: yellow;}
 
 它允许给html不存在的标签设置样式，比如给html中一个标签元素鼠标滑过的状态设置字体颜色：
 
-```
+```css
 a:hover{color:red;}
 这行代码会使被<a></a>标签包裹的文字内容中的“胆小如鼠”字体颜色在鼠标滑过时变为红色
 ```
@@ -583,7 +583,7 @@ CSS的某些样式是具有继承性的，那么什么是继承呢？继承是�
 根据权值来判断使用哪个css样式。浏览器是根据权值来判断使用哪种css样式的，权值高的就使用哪种css样式。下面是权值的规则：
 标签的权值为1，类选择符的权值为10，ID选择符的权值最高为100。例如下面的代码：
 
-```
+```css
 p{color:red;} /*权值为1*/
 p span{color:green;} /*权值为1+1=2*/
 .warning{color:white;} /*权值为10*/
@@ -605,7 +605,7 @@ p span.warning{color:purple;} /*权值为1+1+10=12*/
 我们在做网页代码的时，有些特殊的情况需要为某些样式设置具有最高权值，怎么办？这时候我们可以使用!important来解决。
 如下代码：
 
-```
+```css
 p{color:red!important;}
 p{color:green;}
 <p class="first">三年级时，我还是一个<span>胆小如鼠</span>的小女孩。</p>
@@ -620,7 +620,7 @@ p{color:green;}
 
 块状元素、内联元素和内联块状元素。
 
-````
+````css
 常用的块状元素有：
 <div>、<p>、<h1>...<h6>、<ol>、<ul>、<dl>、<table>、<address>、<blockquote> 、<form>
 常用的内联元素有：
@@ -667,7 +667,7 @@ inline-block元素特点：
 
 ![image-20200705212214750](/../images/CSS/image-20200705212214750.png)
 
-```
+```css
 盒模型--边框（一）
 盒子模型的边框就是围绕着内容及补白的线，这条线你可以设置它的粗细、样式和颜色(边框三个属性)。
 如下面代码为div来设置边框粗细为2px、样式为实心的、颜色为红色的边框：
@@ -728,7 +728,7 @@ div{padding:10px;}
 div{padding:10px 20px;}
 ```
 
-```
+```css
 盒模型代码简写
 还记得在讲盒模型时外边距(margin)、内边距(padding)和边框(border)设置上下左右四个方向的边距是按照顺时针方向设置的：上右下左。具体应用在margin和padding的例子如下：
 margin:10px 15px 12px 14px;/*上设置为10px、右设置为15px、下设置为12px、左设置为14px*/
@@ -748,7 +748,7 @@ margin:10px 20px 30px;
 注意：padding、border的缩写方法和margin是一致的。
 ```
 
-```
+```css
 颜色值缩写
 关于颜色的css样式也是可以缩写的，当你设置的颜色是16进制的色彩值时，如果每两位的值相同，可以缩写一半。
 例子1：
@@ -784,7 +784,7 @@ p{color: #369;}
 
 块状元素这么霸道都是独占一行，如果现在我们想让两个块状元素并排显示，怎么办呢？不要着急，设置元素浮动就可以实现这一愿望。任何元素在默认情况下是不能浮动的，但可以用CSS定义为浮动，如div、p、table、img等元素都可以被定义为浮动。如下代码可以实现两个div元素一行显示。
 
-```
+```css
 div{
     width:200px;
     height:200px;
@@ -806,7 +806,7 @@ div{
 2、相对定位(position: relative)
 3、固定定位(position: fixed)
 
-```
+```css
 CSS position 属性
 通过使用 position 属性，我们可以选择 4 种不同类型的定位，这会影响元素框生成的方式。
 
@@ -825,7 +825,7 @@ fixed
 如果想为元素设置层模型中的绝对定位，需要设置position:absolute(表示绝对定位)，这条语句的作用将元素从文档流中拖出来，然后使用left、right、top、bottom属性相对于其最接近的一个具有定位属性的父包含块进行绝对定位。如果不存在这样的包含块，则相对于body元素，即相对于浏览器窗口。
 如下面代码可以实现div元素相对于浏览器窗口向右移动100px，向下移动50px。
 
-```
+```css
 div{
     width:200px;
     height:200px;
@@ -841,7 +841,7 @@ div{
 如果想为元素设置层模型中的相对定位，需要设置position:relative（表示相对定位），它通过left、right、top、bottom属性确定元素在正常文档流中的偏移位置。相对定位完成的过程是首先按static(float)方式生成一个元素(并且元素像层一样浮动了起来)，然后相对于以前的位置移动，移动的方向和幅度由left、right、top、bottom属性确定，偏移前的位置保留不动。
 如下代码实现相对于以前位置向下移动50px，向右移动100px;
 
-```
+```css
 #div1{
     width:200px;
     height:200px;
@@ -857,7 +857,7 @@ div{
 固定住某一坐标。
 fixed：表示固定定位，与absolute定位类型类似，但它的相对移动的坐标是视图（屏幕内的网页窗口）本身。由于视图本身是固定的，它不会随浏览器窗口的滚动条滚动而变化，除非你在屏幕中移动浏览器窗口的屏幕位置，或改变浏览器窗口的显示大小，因此固定定位的元素会始终位于浏览器窗口内视图的某个位置，不会受文档流动影响，这与background-attachment:fixed?属性功能相同。以下代码可以实现相对于浏览器视图向右移动100px，向下移动50px。并且拖动滚动条时位置固定不变。
 
-```
+```css
 #div1{
     width:200px;
     height:200px;
@@ -874,7 +874,7 @@ fixed：表示固定定位，与absolute定位类型类似，但它的相对移�
 
 1、参照定位的元素必须是相对定位元素的前辈元素：
 
-```
+```css
 <div id="box1"><!--参照定位的元素-->
     <div id="box2">相对参照元素进行定位</div><!--相对定位元素-->
 </div>
@@ -882,7 +882,7 @@ fixed：表示固定定位，与absolute定位类型类似，但它的相对移�
 
 2、参照定位的元素必须加入position:relative;
 
-```
+```css
 #box1{
     width:200px;
     height:200px;
@@ -892,7 +892,7 @@ fixed：表示固定定位，与absolute定位类型类似，但它的相对移�
 
 3、定位元素加入position:absolute，便可以使用top、bottom、left、right来进行偏移定位了。
 
-```
+```css
 #box2{
     position:absolute;
     top:20px;

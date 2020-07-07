@@ -1,1 +1,12 @@
+title: Html
+date: 2020-07-05 16:50:10
+tags: [«∞∂À,html]
+categories: 
+- web«∞∂À
+- Html
 typora-root-url: ../_posts
+
+git add .
+git commit -m "add"
+git push origin hexo
+hexo g -d
