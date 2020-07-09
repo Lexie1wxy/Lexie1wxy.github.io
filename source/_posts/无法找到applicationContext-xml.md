@@ -3,7 +3,7 @@ title: 无法找到applicationContext-*.xml
 date: 2020-07-08 13:34:37
 tags: [bug]
 categories: 
-- BUg
+- Bug
 - 配置文件
 typora-root-url: ../_posts
 ---

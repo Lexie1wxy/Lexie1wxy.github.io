@@ -3,6 +3,7 @@ title: SSM整合
 tags: [SSM]
 categories: 
 - 框架
+- SSM
 typora-root-url: ../_posts
 ---
 

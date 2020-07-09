@@ -2,7 +2,6 @@
 title: TCP-IP(school)
 tags: [tcp/ip]
 categories: 
-- [网络协议,tcp/ip]
 - [考试]
 typora-root-url: ../_posts
 copyright: true

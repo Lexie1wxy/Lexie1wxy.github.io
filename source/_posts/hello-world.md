@@ -1,8 +1,7 @@
 ---
 title: Hello World
-tags: [Java]
+tags: 
 categories:
-- 主页
 ---
 **Welcome to Lexie's World!!!**
 

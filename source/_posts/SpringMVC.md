@@ -3,6 +3,7 @@ title: SpringMVC
 tags: [SSM,SpringMVC]
 categories: 
 - 框架
+- SpringMVC
 typora-root-url: ../_posts
 ---
 
