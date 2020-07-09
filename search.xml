@@ -23,7 +23,6 @@
 ]]></content>
       <categories>
         <category>框架</category>
-        <category>web前端</category>
         <category>Bootstrap</category>
       </categories>
       <tags>
@@ -854,6 +853,7 @@
 ]]></content>
       <categories>
         <category>框架</category>
+        <category>SSM</category>
       </categories>
       <tags>
         <tag>SSM</tag>
@@ -1080,6 +1080,7 @@
 ]]></content>
       <categories>
         <category>框架</category>
+        <category>SpringMVC</category>
       </categories>
       <tags>
         <tag>SSM</tag>
@@ -1598,6 +1599,7 @@
 ]]></content>
       <categories>
         <category>基础</category>
+        <category>Servlet</category>
       </categories>
       <tags>
         <tag>javaweb</tag>
@@ -1670,7 +1672,6 @@
 
 ]]></content>
       <categories>
-        <category>模式</category>
         <category>考试</category>
       </categories>
       <tags>
@@ -1816,7 +1817,6 @@
 ]]></content>
       <categories>
         <category>考试</category>
-        <category>原理</category>
       </categories>
       <tags>
         <tag>计算机组成原理</tag>
@@ -1927,7 +1927,7 @@
 
 ]]></content>
       <categories>
-        <category>BUg</category>
+        <category>Bug</category>
         <category>配置文件</category>
       </categories>
       <tags>
