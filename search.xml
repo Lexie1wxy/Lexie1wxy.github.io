@@ -1263,8 +1263,6 @@
 <p>l SNMP的两种数据采集方法的特点是什么？</p>
 ]]></content>
       <categories>
-        <category>网络协议</category>
-        <category>tcp/ip</category>
         <category>考试</category>
       </categories>
       <tags>
@@ -1368,12 +1366,6 @@
     <url>/2020/07/01/hello-world/</url>
     <content><![CDATA[<p><strong>Welcome to Lexie’s World!!!</strong></p>
 <a id="more"></a>]]></content>
-      <categories>
-        <category>主页</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
   </entry>
   <entry>
     <title>mysqlBug</title>
@@ -1869,7 +1861,7 @@
 <h3 id="欧克了"><a href="#欧克了" class="headerlink" title="欧克了"></a>欧克了</h3>]]></content>
       <categories>
         <category>Bug</category>
-        <category>程序包</category>
+        <category>程序包problem</category>
       </categories>
       <tags>
         <tag>bug</tag>
