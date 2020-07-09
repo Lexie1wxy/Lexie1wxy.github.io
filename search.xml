@@ -1822,4 +1822,116 @@
         <tag>计算机组成原理</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Error:Java不支持发行版本5</title>
+    <url>/2020/07/08/Error-Java%E4%B8%8D%E6%94%AF%E6%8C%81%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC5/</url>
+    <content><![CDATA[<h3 id="Intellij-idea-报错：Error-java-不支持发行版本5，如下所示"><a href="#Intellij-idea-报错：Error-java-不支持发行版本5，如下所示" class="headerlink" title="Intellij idea 报错：Error : java 不支持发行版本5，如下所示"></a>Intellij idea 报错：Error : java 不支持发行版本5，如下所示</h3><p><img src="../images/Error-Java%E4%B8%8D%E6%94%AF%E6%8C%81%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC5/20180904232438840.png" alt="img"></p>
+<p> 本地运行用的是JDK9，测试Java的Stream操作，报错应该是项目编译配置使用的Java版本不对，需要检查一下项目及环境使用的Java编译版本配置。</p>
+<h3 id="《1》"><a href="#《1》" class="headerlink" title="《1》"></a>《1》</h3><p>在Intellij中点击“File” –&gt;“Project Structure”，看一下“Project”和“Module”栏目中Java版本是否与本地一致：</p>
+<p><img src="../images/Error-Java%E4%B8%8D%E6%94%AF%E6%8C%81%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC5/20180904233036107.png" alt="img"></p>
+<p><img src="../images/Error-Java%E4%B8%8D%E6%94%AF%E6%8C%81%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC5/20180904233152909.png" alt="img"></p>
+<p>如果不一致，改成本地使用的Java版本。</p>
+<h3 id="《2》"><a href="#《2》" class="headerlink" title="《2》"></a>《2》</h3><p>点击“Settings”–&gt;“Bulid, Execution,Deployment”–&gt;“Java Compiler”，<strong>Target bytecode version</strong>设为本地Java版本。</p>
+<p><img src="../images/Error-Java%E4%B8%8D%E6%94%AF%E6%8C%81%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC5/201809042343056.png" alt="img"></p>
+<h3 id="《3》"><a href="#《3》" class="headerlink" title="《3》"></a>《3》</h3><p>点击“Other Setting”–&gt;“Setting for new Project”–&gt;“Java Compiler”，Target bytecode version设为本地Java版本。（可以在Default Settings中把Project bytecode version 一劳永逸地配置成本地Java版本</p>
+<p><img src="../images/Error-Java%E4%B8%8D%E6%94%AF%E6%8C%81%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC5/image-20200708132242555.png" alt="image-20200708132242555"></p>
+<h3 id="三步完成后就不报错啦！"><a href="#三步完成后就不报错啦！" class="headerlink" title="三步完成后就不报错啦！"></a>三步完成后就不报错啦！</h3>]]></content>
+      <categories>
+        <category>Bug</category>
+        <category>idea</category>
+      </categories>
+      <tags>
+        <tag>bug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>idea快捷键</title>
+    <url>/2020/07/09/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+    <content><![CDATA[<ol>
+<li>Ctrl+Alt+B——进入方法</li>
+<li>Ctrl+R——查找某个变量名或者方法名</li>
+</ol>
+]]></content>
+      <categories>
+        <category>快捷键</category>
+        <category>idea</category>
+      </categories>
+      <tags>
+        <tag>快捷键</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javax.annotation不可见</title>
+    <url>/2020/07/08/javax-annotation%E4%B8%8D%E5%8F%AF%E8%A7%81/</url>
+    <content><![CDATA[<h3 id="java-程序包-javax-annotation-不可见-Resource注解无法使用-【解决方法】"><a href="#java-程序包-javax-annotation-不可见-Resource注解无法使用-【解决方法】" class="headerlink" title="java: 程序包 javax.annotation 不可见,@Resource注解无法使用 【解决方法】"></a>java: 程序包 javax.annotation 不可见,@Resource注解无法使用 【解决方法】</h3><h3 id="方法："><a href="#方法：" class="headerlink" title="方法："></a><strong>方法：</strong></h3><p>这是JDK9 出现的问题，降低版本设置为JDK8问题就解决了。</p>
+<p>1、Ctrl+Alt+s 快捷键或者（鼠标右击File，再选择Settings）进入idea设置Settings页面,更改java Compiler的jdk到1.8</p>
+<p>2、进入Project Structure的Project和modules都改改jdk</p>
+<h3 id="欧克了"><a href="#欧克了" class="headerlink" title="欧克了"></a>欧克了</h3>]]></content>
+      <categories>
+        <category>Bug</category>
+        <category>程序包</category>
+      </categories>
+      <tags>
+        <tag>bug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>web.xml配置详解</title>
+    <url>/2020/07/08/web-xml%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>客户端404</title>
+    <url>/2020/07/08/%E5%AE%A2%E6%88%B7%E7%AB%AF404/</url>
+    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>客户端404 The origin server did not find a current representation for the target resou</p>
+<p><img src="/../images/%E5%AE%A2%E6%88%B7%E7%AB%AF404/20200201162659355.png" alt="img"></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>改下tomcat的路径，一般开发中直接改成斜线就可以了</p>
+<p><img src="/../images/%E5%AE%A2%E6%88%B7%E7%AB%AF404/image-20200708135257509.png" alt="image-20200708135257509"></p>
+]]></content>
+      <categories>
+        <category>Bug</category>
+        <category>404</category>
+      </categories>
+      <tags>
+        <tag>bug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据库时区问题</title>
+    <url>/2020/07/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><p>You must configure either the server or JDBC driver (via the serverTimezone configuration property)</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>在连接字符串后面加上<strong>?serverTimezone=UTC</strong></p>
+<p>其中UTC是统一标准世界时间。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">完整的连接字符串示例：jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test?serverTimezone&#x3D;UTC</span><br><span class="line"></span><br><span class="line">或者还有另一种选择：jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;test?useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8，这个是解决中文乱码输入问题</span><br><span class="line"></span><br><span class="line">当然也可以和上面的结合:jdbc:mysql:&#x2F;&#x2F;127.0.0.1:3306&#x2F;test?useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8&amp;serverTimezone&#x3D;UTC</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>Bug</category>
+        <category>timezone</category>
+      </categories>
+      <tags>
+        <tag>bug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>无法找到applicationContext-*.xml</title>
+    <url>/2020/07/08/%E6%97%A0%E6%B3%95%E6%89%BE%E5%88%B0applicationContext-xml/</url>
+    <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><p>用Maven搭建spring、springmvc、mybatis时，运行报错：</p>
+<p>org.springframework.beans.factory.BeanDefinitionStoreException: Could not resolve bean definition resource pattern<br>[classpath:spring/applicationContext-*.xml]; nested exception is java.io.FileNotFoundException: class path resource [spring/] cannot be resolved to URL because it does not exist</p>
+<p>意思是说：<br>无法找到applicationContext-*.xml这个配置文件，因为这些文件不存在</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>我们知道，maven在扫描java文件夹时，不会扫描其中的.xml文件，因为它默认是扫描java文件的，这样mapper.xml就会丢失而导致报错，所以我们会在pom文件中添加这样的配置：</p>
+<p>pom.xml中添加这样的语句：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">       由于修改了默认的resource目录，导致src/main/resources的所有文件都不能被扫描，因此还要配多一个</span><br><span class="line">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>BUg</category>
+        <category>配置文件</category>
+      </categories>
+      <tags>
+        <tag>bug</tag>
+      </tags>
+  </entry>
 </search>

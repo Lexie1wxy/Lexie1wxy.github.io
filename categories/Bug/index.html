@@ -89,7 +89,7 @@
 <meta name="description" content="誰かが消えても世界は破壊されない">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Lexie_W&#39;s World">
-<meta property="og:url" content="http://yoursite.com/categories/Bug/index.html">
+<meta property="og:url" content="http://yoursite.com/categories/BUg/index.html">
 <meta property="og:site_name" content="Lexie_W&#39;s World">
 <meta property="og:description" content="誰かが消えても世界は破壊されない">
 <meta property="article:author" content="Lexie_W">
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/Bug/"/>
+  <link rel="canonical" href="http://yoursite.com/categories/BUg/"/>
 
 
 
 
 
-  <title>分类: Bug | Lexie_W's World</title>
+  <title>分类: BUg | Lexie_W's World</title>
   
 
 
@@ -310,7 +310,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>Bug<small>分类</small>
+        <h1>BUg<small>分类</small>
         </h1>
       </div>
 
@@ -322,9 +322,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2020/07/08/mysqlBug/" itemprop="url">
+            <a class="post-title-link" href="/2020/07/08/%E6%97%A0%E6%B3%95%E6%89%BE%E5%88%B0applicationContext-xml/" itemprop="url">
               
-                <span itemprop="name">mysqlBug</span>
+                <span itemprop="name">无法找到applicationContext-*.xml</span>
               
             </a>
         
@@ -332,7 +332,7 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-08T00:24:01+08:00"
+              datetime="2020-07-08T13:34:37+08:00"
               content="2020-07-08" >
           07-08
         </time>
@@ -397,7 +397,7 @@
             
                           <div class="site-state-item site-state-posts">
                             <a href="/archives">
-                              <span class="site-state-item-count">15</span>
+                              <span class="site-state-item-count">22</span>
                               <span class="site-state-item-name">日志</span>
                             </a>
                           </div>
@@ -409,7 +409,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -420,7 +420,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -444,23 +444,23 @@
         
         
           <li>
-            <a href="/2020/07/08/mysqlBug/" title="mysqlBug" target="_blank">mysqlBug</a>
+            <a href="/2020/07/09/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="idea快捷键" target="_blank">idea快捷键</a>
           </li>
         
           <li>
-            <a href="/2020/07/07/maven%E5%AE%89%E8%A3%85/" title="maven安装" target="_blank">maven安装</a>
+            <a href="/2020/07/08/web-xml%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/" title="web.xml配置详解" target="_blank">web.xml配置详解</a>
           </li>
         
           <li>
-            <a href="/2020/07/07/Bootstrap/" title="Bootstrap" target="_blank">Bootstrap</a>
+            <a href="/2020/07/08/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98/" title="数据库时区问题" target="_blank">数据库时区问题</a>
           </li>
         
           <li>
-            <a href="/2020/07/06/CSS/" title="CSS" target="_blank">CSS</a>
+            <a href="/2020/07/08/%E5%AE%A2%E6%88%B7%E7%AB%AF404/" title="客户端404" target="_blank">客户端404</a>
           </li>
         
           <li>
-            <a href="/2020/07/06/JavaScript/" title="JavaScript" target="_blank">JavaScript</a>
+            <a href="/2020/07/08/%E6%97%A0%E6%B3%95%E6%89%BE%E5%88%B0applicationContext-xml/" title="无法找到applicationContext-*.xml" target="_blank">无法找到applicationContext-*.xml</a>
           </li>
         
       </ul>
@@ -513,7 +513,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共43.3k字 |</span>
+  <span class="post-count">博客全站共44k字 |</span>
 </div>
 
 <div class="powered-by">
@@ -941,6 +941,93 @@
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-hijiki"},"display":{"position":"right","width":140,"height":260},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+0] === "") {
               resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
             } else if (resultItems.length === 0) {
               resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
