@@ -1,12 +1,12 @@
 ---
 title: mysqlBug
 date: 2020-07-08 00:24:01
-tags: [bug]
+tags:
+- bug
 categories: 
 - Bug
 - mysql
 typora-root-url: ../_posts
-
 ---
 
 # 修改mysql数据库的编码格式

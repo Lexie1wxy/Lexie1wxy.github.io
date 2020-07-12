@@ -1,8 +1,10 @@
 ---
 title: Bootstrap
 date: 2020-07-07 13:06:44
-tags: [前端,Bootstrap]
-categories:
+tags: 
+- 前端
+- Bootstrap
+categories: 
 - 框架
 - Bootstrap
 typora-root-url: ../_posts
