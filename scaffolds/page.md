@@ -3,5 +3,5 @@ title: {{ title }}
 date: {{ date }}
 tags:
 categories:
-typora-root-url:
+typora-root-url: ../
 ---

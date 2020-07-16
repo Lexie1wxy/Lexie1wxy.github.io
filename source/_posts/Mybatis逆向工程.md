@@ -1,9 +1,9 @@
 ---
 title: Mybatis逆向工程
 date: 2020-07-10 16:58:13
-tags: 
+tags:
 - Mybatis
-categories: 
+categories:
 - 框架
 - Mybatis
 typora-root-url: ../_posts
