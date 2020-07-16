@@ -78,6 +78,12 @@
               <span class="post-meta-divider">|</span>
             {% endif %}
 
+           {% if post.top %}
+              <i class="fa fa-thumb-tack"></i>
+              <font color=7D26CD>置顶</font>
+              <span class="post-meta-divider">|</span>
+           {% endif %}
+
             {% if theme.post_meta.updated_at %}
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-check-o"></i>
@@ -85,6 +91,7 @@
               {% if theme.post_meta.item_text %}
                 <span class="post-meta-item-text">{{ __('post.modified') }}&#58;</span>
               {% endif %}
+
               <time title="{{ __('post.modified') }}" itemprop="dateModified" datetime="{{ moment(post.updated).format() }}">
                 {{ date(post.updated, config.date_format) }}
               </time>
