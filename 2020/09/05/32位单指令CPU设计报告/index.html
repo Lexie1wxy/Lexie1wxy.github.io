@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="cpu," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="32位单周期MIPS CPU设计报告一、设计说明根据课程设计要求,设计一个单周期32位MIPS CPU。 所谓单周期CPU指的是一条指令的执行在一个时钟周期内完成，然后开始下一条指令的执行，即一条指令用一个时钟周期完成。电平从低到高变化的瞬间称为时钟上升沿，两个相邻时钟上升沿之间的时间间隔称为一个时钟周期。时钟周期一般也称振荡周期（如果晶振的输出没有经过分频就直接作为CPU的工作时钟，则时钟周期就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="32位单指令CPU设计报告">
+<meta property="og:url" content="http://yoursite.com/2020/09/05/32%E4%BD%8D%E5%8D%95%E6%8C%87%E4%BB%A4CPU%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/index.html">
+<meta property="og:site_name" content="Lexie_W&#39;s World">
+<meta property="og:description" content="32位单周期MIPS CPU设计报告一、设计说明根据课程设计要求,设计一个单周期32位MIPS CPU。 所谓单周期CPU指的是一条指令的执行在一个时钟周期内完成，然后开始下一条指令的执行，即一条指令用一个时钟周期完成。电平从低到高变化的瞬间称为时钟上升沿，两个相邻时钟上升沿之间的时间间隔称为一个时钟周期。时钟周期一般也称振荡周期（如果晶振的输出没有经过分频就直接作为CPU的工作时钟，则时钟周期就">
+<meta property="og:image" content="http://yoursite.com/2020/09/source/images/917106840408%E5%90%B4%E5%B8%8C%E9%A2%96%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/image-20200901154501834.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/source/images/917106840408%E5%90%B4%E5%B8%8C%E9%A2%96%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/image-20200903215848789.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/source/images/917106840408%E5%90%B4%E5%B8%8C%E9%A2%96%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/image-20200903220616586.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/source/images/917106840408%E5%90%B4%E5%B8%8C%E9%A2%96%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/image-20200903214958963.png">
+<meta property="article:published_time" content="2020-09-05T07:47:55.580Z">
+<meta property="article:modified_time" content="2020-09-05T07:49:23.791Z">
+<meta property="article:author" content="Lexie_W">
+<meta property="article:tag" content="cpu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/09/source/images/917106840408%E5%90%B4%E5%B8%8C%E9%A2%96%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/image-20200901154501834.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":"flase","scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Latte'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/09/05/32位单指令CPU设计报告/"/>
+
+
+
+
+
+  <title>32位单指令CPU设计报告 | Lexie_W's World</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lexie_W's World</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-varchive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+
+<script>
+
+	window.onload = function(){
+		var path = 'https://lexie1wxy.github.io/'; //这里要改成你博客的地址
+		var localhostItem = String(window.location).split(path)[1];
+		var LiNode = document.querySelectorAll('#menu > li > a')
+
+		for(var i = 0; i< LiNode.length;i++){
+			var item = String(LiNode[i].href).split(path)[1];
+			if(item == localhostItem && item != undefined){
+				LiNode[i].setAttribute('style','border-bottom:1px solid black');
+			}
+		}
+	};
+
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/05/32%E4%BD%8D%E5%8D%95%E6%8C%87%E4%BB%A4CPU%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lexie_W">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lexie_W's World">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">32位单指令CPU设计报告</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-05T15:47:55+08:00">
+                2020-09-05
+              </time>
+            
+
+            
+
+           
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A1%AC%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">硬件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A1%AC%E4%BB%B6/cpu/" itemprop="url" rel="index">
+                    <span itemprop="name">cpu</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="32位单周期MIPS-CPU设计报告"><a href="#32位单周期MIPS-CPU设计报告" class="headerlink" title="32位单周期MIPS CPU设计报告"></a>32位单周期MIPS CPU设计报告</h1><h2 id="一、设计说明"><a href="#一、设计说明" class="headerlink" title="一、设计说明"></a>一、设计说明</h2><p>根据课程设计要求,设计一个单周期32位MIPS CPU。</p>
+<p>所谓单周期CPU指的是一条指令的执行在一个时钟周期内完成，然后开始下一条指令的执行，即一条指令用一个时钟周期完成。电平从低到高变化的瞬间称为时钟上升沿，两个相邻时钟上升沿之间的时间间隔称为一个时钟周期。时钟周期一般也称振荡周期（如果晶振的输出没有经过分频就直接作为CPU的工作时钟，则时钟周期就等于振荡周期。若振荡周期经二分频后形成时钟脉冲信号作为CPU的工作时钟，这样，时钟周期就是振荡周期的两倍。）</p>
+<p>CPU在处理指令时，一般需要经过以下几个步骤：</p>
+<p>(1) 取指令(IF)：根据程序计数器PC中的指令地址，从存储器中取出一条指令，同时，PC根据指令字长度自动递增产生下一条指令所需要的指令地址，但遇到“地址转移”指令时，则控制器把“转移地址”送入PC，当然得到的“地址”需要做些变换才送入PC。 </p>
+<p>(2) 指令译码(ID)：对取指令操作中得到的指令进行分析并译码，确定这条指令需要完成的操作，从而产生相应的操作控制信号，用于驱动执行状态中的各种操作。 </p>
+<p>(3) 指令执行(EXE)：根据指令译码得到的操作控制信号，具体地执行指令动作，然后转移到结果写回状态。 </p>
+<p>(4) 存储器访问(MEM)：所有需要访问存储器的操作都将在这个步骤中执行，该步骤给出存储器的数据地址，把数据写入到存储器中数据地址所指定的存储单元或者从存储器中得到数据地址单元中的数据。 </p>
+<p>(5) 结果写回(WB)：指令执行的结果或者访问存储器中得到的数据写回相应的目的寄存器中。<br>单周期CPU，是在一个时钟周期内完成这五个阶段的处理。</p>
+<p>本设计中各个底层模块采用Verilog语言编写，顶层模块完成各模块之间的连接，采用RTL原理图进行设计。</p>
+<h2 id="二、指令系统及指令功能说明："><a href="#二、指令系统及指令功能说明：" class="headerlink" title="二、指令系统及指令功能说明："></a>二、指令系统及指令功能说明：</h2><h2 id="三、指令格式"><a href="#三、指令格式" class="headerlink" title="三、指令格式"></a>三、指令格式</h2><p>其中，</p>
+<p><strong>op：</strong>为操作码；</p>
+<p><strong>rs：</strong>为第1个源操作数寄存器，寄存器地址（编号）是00000<del>11111，00</del>1F；</p>
+<p><strong>rt：</strong>为第2个源操作数寄存器，或目的操作数寄存器，寄存器地址（同上）；</p>
+<p><strong>rd：</strong>为目的操作数寄存器，寄存器地址（同上）；</p>
+<p><strong>sa：</strong>为位移量（shift amt），移位指令用于指定移多少位；</p>
+<p><strong>func：</strong>为功能码，在寄存器类型指令中（R类型）用来指定指令的功能；</p>
+<p><strong>immediate：</strong>为16位立即数，用作无符号的逻辑操作数、有符号的算术操作数、数据加载（Laod）/数据保存（Store）指令的数据地址字节偏移量和分支指令中相对程序计数器（PC）的有符号偏移量；</p>
+<p><strong>address：</strong>为地址。</p>
+<h2 id="三、整体框架图"><a href="#三、整体框架图" class="headerlink" title="三、整体框架图"></a>三、整体框架图</h2><p><img src="../../source/images/917106840408%E5%90%B4%E5%B8%8C%E9%A2%96%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/image-20200901154501834.png" alt="image-20200901154501834"></p>
+<h2 id="四、数据通路图"><a href="#四、数据通路图" class="headerlink" title="四、数据通路图"></a>四、数据通路图</h2><p><img src="../../source/images/917106840408%E5%90%B4%E5%B8%8C%E9%A2%96%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/image-20200903215848789.png" alt="image-20200903215848789"></p>
+<h2 id="六、各模块的程序"><a href="#六、各模块的程序" class="headerlink" title="六、各模块的程序"></a>六、各模块的程序</h2><h3 id="1、控制单元ControlUnit"><a href="#1、控制单元ControlUnit" class="headerlink" title="1、控制单元ControlUnit"></a>1、控制单元ControlUnit</h3><p><strong>设计思路</strong></p>
+<p>根据数据通路图可以知道，控制单元的功能是接收一个6位的操作码（opCode）和一个标志符（zero）作为输入，输出PCWre、ALUSrcB等控制信号</p>
+<p>各控制信号的作用见（表1），从而达到控制各指令的目的。</p>
+<p><strong>程序代码：</strong></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="meta-keyword">timescale</span> 1ns / 1ps</span></span><br><span class="line"><span class="keyword">module</span> ControlUnit(</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">5</span>:<span class="number">0</span>] op,         <span class="comment">// op操作符</span></span><br><span class="line">    <span class="keyword">input</span> zero,             <span class="comment">// ALU的zero输出</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> PCSrc,           <span class="comment">// 多路选择器</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> PCWre,           <span class="comment">// (PC)PC是否更改，如果为0，PC不更改</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> ALUSrcB,         <span class="comment">// 多路选择器</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> ALUM2Reg,        <span class="comment">// 多路选择器</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> RegWre,          <span class="comment">// (RF)写使能信号，为1时，在时钟上升沿写入</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> InsMemRW,        <span class="comment">// (IM)读写控制信号，1为写，0位读</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> DataMemRW,       <span class="comment">// (DM)数据存储器读写控制信号，为1写，为0读</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> ExtSel,          <span class="comment">// (EXT)控制补位，如果为1，进行符号扩展，如果为0，全补0</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> RegOut,          <span class="comment">// 多路选择器</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] ALUOp      <span class="comment">// (ALU)ALU操作控制 </span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">initial</span> </span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">        ExtSel = <span class="number">0</span>;</span><br><span class="line">        PCWre = <span class="number">1</span>;</span><br><span class="line">        InsMemRW = <span class="number">1</span>;</span><br><span class="line">        RegOut = <span class="number">1</span>;</span><br><span class="line">        RegWre = <span class="number">0</span>;</span><br><span class="line">        ALUOp = <span class="number">0</span>;</span><br><span class="line">        PCSrc = <span class="number">0</span>;</span><br><span class="line">        ALUSrcB = <span class="number">0</span>;</span><br><span class="line">        DataMemRW = <span class="number">0</span>;</span><br><span class="line">        ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">always</span>@(op <span class="keyword">or</span> zero)</span><br><span class="line">    <span class="keyword">begin</span>  </span><br><span class="line">      <span class="keyword">case</span>(op) </span><br><span class="line">            <span class="comment">// add</span></span><br><span class="line">            <span class="number">6'b000000</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">0</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">1</span>;</span><br><span class="line">                ALUOp = <span class="number">000</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">            <span class="comment">// addi</span></span><br><span class="line">            <span class="number">6'b000001</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">1</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">1</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">000</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">            <span class="comment">// sub</span></span><br><span class="line">            <span class="number">6'b000010</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">0</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">1</span>;</span><br><span class="line">                ALUOp = <span class="number">001</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">             </span><br><span class="line">           <span class="comment">// subi</span></span><br><span class="line">            <span class="number">6'b000011</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">1</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">001</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">            <span class="comment">// ori</span></span><br><span class="line">            <span class="number">6'b010000</span>:</span><br><span class="line">             <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">1</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">011</span>;</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">           <span class="comment">// and</span></span><br><span class="line">         <span class="number">6'b010001</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">0</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">1</span>;</span><br><span class="line">                ALUOp = <span class="number">100</span>;</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">            <span class="comment">// or</span></span><br><span class="line">            <span class="number">6'b010010</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">0</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">1</span>;</span><br><span class="line">                ALUOp = <span class="number">011</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">            <span class="comment">// andi</span></span><br><span class="line">            <span class="number">6'b010011</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制 new</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">1</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">100</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">           <span class="comment">// xor</span></span><br><span class="line">            <span class="number">6'b010100</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制 new</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">0</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">1</span>;</span><br><span class="line">                ALUOp = <span class="number">110</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">                <span class="comment">// not</span></span><br><span class="line">            <span class="number">6'b010101</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制 new</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">1</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">010</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">             <span class="comment">// leftmovei</span></span><br><span class="line">            <span class="number">6'b011001</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制 new</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">1</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">111</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">              <span class="comment">// righttmovei</span></span><br><span class="line">            <span class="number">6'b011010</span>:</span><br><span class="line">          <span class="keyword">begin</span>   </span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">1</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">101</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">           <span class="comment">// move</span></span><br><span class="line">         <span class="number">6'b100000</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">0</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">1</span>;</span><br><span class="line">                ALUOp = <span class="number">000</span>;</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">           <span class="comment">// movei</span></span><br><span class="line">         <span class="number">6'b100001</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">1</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">000</span>;</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">            <span class="comment">// sw</span></span><br><span class="line">            <span class="number">6'b100110</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">1</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">0</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">1</span>;</span><br><span class="line">                ExtSel = <span class="number">1</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">000</span>;</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">         <span class="comment">// lw</span></span><br><span class="line">            <span class="number">6'b100111</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">1</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">1</span>;</span><br><span class="line">                RegWre = <span class="number">1</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">1</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">000</span>;</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">         <span class="comment">// beq</span></span><br><span class="line">           <span class="number">6'b110000</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                <span class="keyword">if</span> (zero) <span class="keyword">begin</span></span><br><span class="line">                    PCSrc = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                    PCSrc = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">0</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">1</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">001</span>;</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">          <span class="comment">// bne</span></span><br><span class="line">           <span class="number">6'b110001</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                <span class="keyword">if</span> (zero) <span class="keyword">begin</span></span><br><span class="line">                    PCSrc = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">                    PCSrc = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">0</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">1</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">001</span>;</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">          <span class="comment">// j</span></span><br><span class="line">           <span class="number">6'b110010</span>:</span><br><span class="line">          <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">    </span><br><span class="line">                PCWre = <span class="number">1</span>;</span><br><span class="line">                ALUSrcB = <span class="number">0</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">0</span>;</span><br><span class="line">                InsMemRW = <span class="number">1</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">1</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">000</span>;</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">           <span class="comment">// halt</span></span><br><span class="line">           <span class="number">6'b111111</span>:</span><br><span class="line">             <span class="keyword">begin</span>   <span class="comment">//以下都是控制单元产生的控制信号</span></span><br><span class="line">                PCWre = <span class="number">0</span>;</span><br><span class="line">                ALUSrcB = <span class="number">0</span>;</span><br><span class="line">                ALUM2Reg = <span class="number">0</span>;</span><br><span class="line">                RegWre = <span class="number">0</span>;</span><br><span class="line">                InsMemRW = <span class="number">0</span>;</span><br><span class="line">                DataMemRW = <span class="number">0</span>;</span><br><span class="line">                ExtSel = <span class="number">0</span>;</span><br><span class="line">                PCSrc = <span class="number">0</span>;</span><br><span class="line">                RegOut = <span class="number">0</span>;</span><br><span class="line">                ALUOp = <span class="number">000</span>;</span><br><span class="line">             <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、算术运算单元（ALU）"><a href="#2、算术运算单元（ALU）" class="headerlink" title="2、算术运算单元（ALU）"></a>2、算术运算单元（ALU）</h3><p><strong>设计思路：</strong></p>
+<p>模块ALU接收寄存器的数据和控制信号作为输入，执行相应的计算，然后将结果输出:</p>
+<p><strong>程序代码</strong></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> ALU(</span><br><span class="line">     <span class="keyword">input</span> [<span class="number">2</span>:<span class="number">0</span>] ALUOp,          </span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] A,             </span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] B,             </span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> zero,             <span class="comment">// 运算结果result的标志，result为0输出1，否则输出0</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] result   </span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进行ALU计算</span></span><br><span class="line">    <span class="keyword">always</span>@(*)</span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">case</span> (ALUOp)</span><br><span class="line">            <span class="number">3'b000</span> : result = A + B; </span><br><span class="line">            <span class="number">3'b001</span> : result = A - B; </span><br><span class="line">            <span class="number">3'b010</span> : result = ~ A; </span><br><span class="line">            <span class="number">3'b011</span> : result = A | B; </span><br><span class="line">            <span class="number">3'b100</span> : result = A &amp; B; </span><br><span class="line">            <span class="number">3'b101</span> : result = A &gt;&gt; B; </span><br><span class="line">            <span class="number">3'b110</span> : result = A ^ B; </span><br><span class="line">            <span class="number">3'b111</span> : result = A &lt;&lt; B; </span><br><span class="line">            <span class="keyword">default</span> : result = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line">        <span class="keyword">if</span> (result)  zero = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span>  zero = <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、PC单元（PC）"><a href="#3、PC单元（PC）" class="headerlink" title="3、PC单元（PC）"></a>3、<strong>PC单元（PC）</strong></h3><p><strong>设计思路：</strong></p>
+<p>PC单元以时钟信号clk、重置标志Reset、立即数、PCWreck信号控制和newAddress新指令为输入，根据输入决定是否修改当前地址并输出。</p>
+<p><strong>程序代码</strong></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> PC(</span><br><span class="line">    <span class="keyword">input</span> CLK,                         </span><br><span class="line">    <span class="keyword">input</span> Reset,                     </span><br><span class="line">    <span class="keyword">input</span> PCWre,                       </span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] newAddress,          </span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span>[<span class="number">31</span>:<span class="number">0</span>] currentAddress  </span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">        currentAddress &lt;= <span class="number">0</span>;  <span class="comment">// 初始化赋值</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">always</span>@(<span class="keyword">posedge</span> CLK <span class="keyword">or</span> <span class="keyword">posedge</span> Reset)</span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">if</span> (Reset == <span class="number">1</span>)  currentAddress &lt;= <span class="number">0</span>;  <span class="comment">// 重置，赋值为0</span></span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">         <span class="keyword">begin</span></span><br><span class="line">             <span class="keyword">if</span> (PCWre)  currentAddress &lt;= newAddress;</span><br><span class="line">             <span class="comment">// PCWre决定PC是否更改，如果为1，PC更改为新指令当前地址</span></span><br><span class="line">            <span class="keyword">else</span>  currentAddress &lt;= currentAddress;</span><br><span class="line">         <span class="keyword">end</span></span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、-扩展单元（signZeroExtend）"><a href="#4、-扩展单元（signZeroExtend）" class="headerlink" title="4、 扩展单元（signZeroExtend）"></a>4、 扩展单元（signZeroExtend）</h3><p><strong>设计思想</strong></p>
+<p>比较简单的一个模块，用于立即数的扩展。ExtSel 为控制补位信号。判断后，将 extendImmediate 的前 16 位全补 1 或 0 即可。</p>
+<p><strong>程序代码</strong></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> SignZeroExtend(</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">15</span>:<span class="number">0</span>] immediate,        <span class="comment">// 16位立即数</span></span><br><span class="line">    <span class="keyword">input</span> ExtSel,                  <span class="comment">// 控制补位，如果为1，进行符号扩展，如果为0，全补0</span></span><br><span class="line">    <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] extendImmediate   <span class="comment">// 输出的32位立即数</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">assign</span> extendImmediate[<span class="number">15</span>:<span class="number">0</span>] = immediate;</span><br><span class="line">    <span class="keyword">assign</span> extendImmediate[<span class="number">31</span>:<span class="number">16</span>] = ExtSel ? (immediate[<span class="number">15</span>] ? <span class="number">16'hffff</span> : <span class="number">16'h0000</span>) : <span class="number">16'h0000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、数据存储单元（DataMemory"><a href="#5、数据存储单元（DataMemory" class="headerlink" title="5、数据存储单元（DataMemory)"></a>5、数据存储单元（DataMemory)</h3><p><strong>设计思想</strong></p>
+<p>数据存储单元的功能是读取数据</p>
+<p><strong>程序代码</strong></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//`timescale 1ns / 1ps</span></span><br><span class="line"><span class="keyword">module</span> DataMemory(</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] DAddr,         <span class="comment">// 地址输入端口</span></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] DataIn,        <span class="comment">// 数据输入端口</span></span><br><span class="line">    <span class="keyword">input</span> DataMemRW,            <span class="comment">// 读写控制信号，为1写，为0读</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] DataOut  </span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">//以8位为一字节存储</span></span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] memory[<span class="number">0</span>:<span class="number">15</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">integer</span> i;</span><br><span class="line">    <span class="keyword">initial</span></span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">16</span>; i = i + <span class="number">1</span>) </span><br><span class="line">            memory[i] &lt;= <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读写内存</span></span><br><span class="line">    <span class="keyword">always</span>@(DAddr)</span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line"></span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">always</span>@(DAddr <span class="keyword">or</span> DataIn)</span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">        <span class="comment">// 写</span></span><br><span class="line">        <span class="keyword">if</span> (DataMemRW)</span><br><span class="line">         <span class="keyword">begin</span></span><br><span class="line">           memory[DAddr] &lt;= DataIn[<span class="number">31</span>:<span class="number">24</span>];</span><br><span class="line">            memory[DAddr + <span class="number">1</span>] &lt;= DataIn[<span class="number">23</span>:<span class="number">16</span>];</span><br><span class="line">            memory[DAddr + <span class="number">2</span>] &lt;= DataIn[<span class="number">15</span>:<span class="number">8</span>];</span><br><span class="line">            memory[DAddr + <span class="number">3</span>] &lt;= DataIn[<span class="number">7</span>:<span class="number">0</span>];</span><br><span class="line">         <span class="keyword">end</span></span><br><span class="line">        <span class="comment">// 读</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">         <span class="keyword">begin</span></span><br><span class="line">            DataOut[<span class="number">31</span>:<span class="number">24</span>] &lt;= memory[DAddr];</span><br><span class="line">            DataOut[<span class="number">23</span>:<span class="number">16</span>] &lt;= memory[DAddr + <span class="number">1</span>];</span><br><span class="line">            DataOut[<span class="number">15</span>:<span class="number">8</span>] &lt;= memory[DAddr + <span class="number">2</span>];</span><br><span class="line">            DataOut[<span class="number">7</span>:<span class="number">0</span>] &lt;= memory[DAddr + <span class="number">3</span>];</span><br><span class="line">         <span class="keyword">end</span></span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6、指令存储单元（instructionMemory）"><a href="#6、指令存储单元（instructionMemory）" class="headerlink" title="6、指令存储单元（instructionMemory）"></a>6、指令存储单元（instructionMemory）</h3><p><strong>设计思想</strong></p>
+<p>根据当前的PC地址得到对应的op，rs，rt，rd以及immediate.内部实现：将需要测试的汇编指令程序转化为指令代码，每个人都可以有自己的测试指令</p>
+<p>其次，为了存储这些指令代码，可以申请一个32位的二进制数组来存储它们，最后根据PC地址得到对应的op,rs,rt,immediate</p>
+<p><strong>程序代码:</strong></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> InstructionMemory(</span><br><span class="line">    <span class="keyword">input</span> InsMemRW,            <span class="comment">// 读写控制信号，1为写，0位读</span></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] IAddr,        <span class="comment">// 指令地址输入入口</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">output</span> [<span class="number">5</span>:<span class="number">0</span>] op,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] rs,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] rt,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] rd,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">15</span>:<span class="number">0</span>] immediate    <span class="comment">// 指令代码分时段输出</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">reg</span>[<span class="number">7</span>:<span class="number">0</span>] mem[<span class="number">0</span>:<span class="number">63</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">initial</span> </span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">        <span class="built_in">$readmemb</span>(<span class="string">"test1.txt"</span>, mem);  <span class="comment">//读取指令</span></span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从地址取值</span></span><br><span class="line">    <span class="keyword">assign</span> op = mem[IAddr][<span class="number">7</span>:<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">assign</span> rs[<span class="number">4</span>:<span class="number">3</span>] = mem[IAddr][<span class="number">1</span>:<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">assign</span> rs[<span class="number">2</span>:<span class="number">0</span>] = mem[IAddr + <span class="number">1</span>][<span class="number">7</span>:<span class="number">5</span>];</span><br><span class="line">    <span class="keyword">assign</span> rt = mem[IAddr + <span class="number">1</span>][<span class="number">4</span>:<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">assign</span> rd = mem[IAddr + <span class="number">2</span>][<span class="number">7</span>:<span class="number">3</span>];</span><br><span class="line">    <span class="keyword">assign</span> immediate[<span class="number">15</span>:<span class="number">8</span>] = mem[IAddr + <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">assign</span> immediate[<span class="number">7</span>:<span class="number">0</span>] = mem[IAddr + <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7、寄存器文件单元（registerFile）"><a href="#7、寄存器文件单元（registerFile）" class="headerlink" title="7、寄存器文件单元（registerFile）"></a>7、寄存器文件单元（registerFile）</h3><p><strong>设计思想</strong></p>
+<p>寄存器文件单元的功能是接收instructionMemory中的rs，rt，rd作为输入，输出对应寄存器的数据，从而达到取寄存器里的数据的目的。在其内部实现的过程中，为了防止0号寄存器写入数据需要在writeReg的时候多加入一个判断条件，即writeReg不等于0时写入数据。</p>
+<p><strong>程序代码</strong></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//`timescale 1ns / 1ps</span></span><br><span class="line"><span class="keyword">module</span> RegisterFile(</span><br><span class="line">    <span class="keyword">input</span> CLK,                 <span class="comment">// 时钟</span></span><br><span class="line">    <span class="keyword">input</span> RegWre,              <span class="comment">// 写使能信号，为1时，在时钟上升沿写入</span></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] rs,            <span class="comment">// rs寄存器地址输入端口</span></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] rt,            <span class="comment">// rt寄存器地址输入端口</span></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] WriteData,    <span class="comment">// 写入寄存器的数据输入端口</span></span><br><span class="line">    <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] WriteReg,      <span class="comment">// 将数据写入的寄存器端口，其地址来源rt或rd字段,</span></span><br><span class="line">    <span class="comment">//为了防止0号寄存器写入数据需要在writeReg的时候多加入一个判断条件，即writeReg不等于0时写入数据</span></span><br><span class="line">    <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] ReadData1,   <span class="comment">// rs寄存器数据输出端口</span></span><br><span class="line">    <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] ReadData2    <span class="comment">// rt寄存器数据输出端口</span></span><br><span class="line">    );</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] register[<span class="number">0</span>:<span class="number">15</span>];  <span class="comment">// 新建16个寄存器，用于操作</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 初始时，将16个寄存器全部赋值为0</span></span><br><span class="line">    <span class="keyword">integer</span> i;</span><br><span class="line">    <span class="keyword">initial</span> </span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">16</span>; i = i + <span class="number">1</span>)  register[i] &lt;= <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读寄存器</span></span><br><span class="line">    <span class="keyword">assign</span> ReadData1 = register[rs];</span><br><span class="line">    <span class="keyword">assign</span> ReadData2 = register[rt];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 写寄存器</span></span><br><span class="line">    <span class="keyword">always</span>@(<span class="keyword">negedge</span> CLK)</span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">        <span class="comment">// 如果寄存器不为0，并且RegWre写使能信号为真，写入数据</span></span><br><span class="line">        <span class="keyword">if</span> (RegWre &amp;&amp; WriteReg != <span class="number">0</span>)  register[WriteReg] = WriteData;</span><br><span class="line">     <span class="keyword">end</span> </span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>8、顶层模块（CPU）</strong></p>
+<p><strong>设计思想</strong></p>
+<p>顶层模块（CPU）是整个CPU的控制模块，通过连接各个子模块来达到运行CPU的目的，整个模块设计可以如下：</p>
+<p><strong>程序代码</strong></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//`timescale 1ns / 1ps</span></span><br><span class="line"><span class="keyword">module</span> cpu(</span><br><span class="line">    <span class="keyword">input</span> CLK,</span><br><span class="line">    <span class="keyword">input</span> Reset,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">5</span>:<span class="number">0</span>] op,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] rs,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] rt,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">4</span>:<span class="number">0</span>] rd,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">15</span>:<span class="number">0</span>] immediate,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] ReadData1,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] ReadData2,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] WriteData,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] currentAddress,</span><br><span class="line">    <span class="keyword">output</span> [<span class="number">31</span>:<span class="number">0</span>] result</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 各种临时变量</span></span><br><span class="line">   <span class="keyword">wire</span> [<span class="number">2</span>:<span class="number">0</span>] ALUOp; </span><br><span class="line">   <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] B, newAddress;</span><br><span class="line">   <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] currentAddress_4, extendImmediate, currentAddress_immediate;   </span><br><span class="line">   <span class="keyword">wire</span> [<span class="number">4</span>:<span class="number">0</span>] WriteReg;  </span><br><span class="line">   <span class="keyword">wire</span> zero, PCSrc, PCWre, ALUSrcB, ALUM2Reg, RegWre, InsMemRW, DataMemRW, ExtSel, RegOut;</span><br><span class="line"></span><br><span class="line">    ControlUnit cu(op, zero, PCSrc, PCWre, ALUSrcB, ALUM2Reg, RegWre, InsMemRW, DataMemRW, ExtSel, RegOut, ALUOp);</span><br><span class="line"></span><br><span class="line">    PC pc(CLK, Reset, PCWre, newAddress, currentAddress);</span><br><span class="line"></span><br><span class="line">    InstructionMemory im(InsMemRW, currentAddress, op, rs, rt, rd, immediate);</span><br><span class="line">    RegisterFile rf(CLK, RegWre, rs, rt, WriteReg, WriteData, ReadData1, ReadData2);</span><br><span class="line">    ALU alu(ALUOp, ReadData1, B, zero, result);</span><br><span class="line">    SignZeroExtend sze(ExtSel, immediate, extendImmediate);</span><br><span class="line">    DataMemory dm(DataMemRW, result, ReadData2, DataOut);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">assign</span> currentAddress_4 = currentAddress + <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">assign</span> currentAddress_immediate = currentAddress_4 + (extendImmediate &lt;&lt; <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    Multiplexer5 m5(RegOut, rd, rt, WriteReg);</span><br><span class="line">    Multiplexer32 m321(ALUSrcB, extendImmediate, ReadData2, B);</span><br><span class="line">    Multiplexer32 m322(ALUM2Reg, DataOut, result, WriteData);</span><br><span class="line">    Multiplexer32 m323(PCSrc, currentAddress_immediate, currentAddress_4, newAddress);</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="8、顶层原理图"><a href="#8、顶层原理图" class="headerlink" title="8、顶层原理图"></a>8、顶层原理图</h2><p><img src="../../source/images/917106840408%E5%90%B4%E5%B8%8C%E9%A2%96%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/image-20200903220616586.png" alt="image-20200903220616586"></p>
+<h2 id="9、各条指令运行的仿真波形图"><a href="#9、各条指令运行的仿真波形图" class="headerlink" title="9、各条指令运行的仿真波形图"></a>9、各条指令运行的仿真波形图</h2><p><img src="../../source/images/917106840408%E5%90%B4%E5%B8%8C%E9%A2%96%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/image-20200903214958963.png" alt="image-20200903214958963"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cpu/" rel="tag"># cpu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/26/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" rel="next" title="信息安全">
+                <i class="fa fa-chevron-left"></i> 信息安全
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="Lexie_W" />
+            
+              <p class="site-author-name" itemprop="name">Lexie_W</p>
+              <p class="site-description motion-element" itemprop="description">誰かが消えても世界は破壊されない</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+                          <div class="site-state-item site-state-posts">
+                            <a href="/archives">
+                              <span class="site-state-item-count">30</span>
+                              <span class="site-state-item-name">日志</span>
+                            </a>
+                          </div>
+            
+
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          <!-- 添加近期文章 -->
+
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+      <div class="links-of-blogroll-title">
+        <!-- modify icon to fire by szw -->
+        <i class="fa fa-history fa-" aria-hidden="true"></i>
+        近期文章
+      </div>
+      <ul class="links-of-blogroll-list">
+        
+        
+          <li>
+            <a href="/2020/09/05/32%E4%BD%8D%E5%8D%95%E6%8C%87%E4%BB%A4CPU%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A/" title="32位单指令CPU设计报告" target="_blank">32位单指令CPU设计报告</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/26/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" title="信息安全" target="_blank">信息安全</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/20/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="操作系统" target="_blank">操作系统</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B02/" title="算法笔记2" target="_blank">算法笔记2</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/01/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" title="时间复杂度" target="_blank">时间复杂度</a>
+          </li>
+        
+      </ul>
+    </div>
+
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#32位单周期MIPS-CPU设计报告"><span class="nav-text">32位单周期MIPS CPU设计报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、设计说明"><span class="nav-text">一、设计说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、指令系统及指令功能说明："><span class="nav-text">二、指令系统及指令功能说明：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、指令格式"><span class="nav-text">三、指令格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、整体框架图"><span class="nav-text">三、整体框架图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、数据通路图"><span class="nav-text">四、数据通路图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、各模块的程序"><span class="nav-text">六、各模块的程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、控制单元ControlUnit"><span class="nav-text">1、控制单元ControlUnit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、算术运算单元（ALU）"><span class="nav-text">2、算术运算单元（ALU）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、PC单元（PC）"><span class="nav-text">3、PC单元（PC）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、-扩展单元（signZeroExtend）"><span class="nav-text">4、 扩展单元（signZeroExtend）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、数据存储单元（DataMemory"><span class="nav-text">5、数据存储单元（DataMemory)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、指令存储单元（instructionMemory）"><span class="nav-text">6、指令存储单元（instructionMemory）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、寄存器文件单元（registerFile）"><span class="nav-text">7、寄存器文件单元（registerFile）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、顶层原理图"><span class="nav-text">8、顶层原理图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、各条指令运行的仿真波形图"><span class="nav-text">9、各条指令运行的仿真波形图</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lexie_W</span>
+
+  
+</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共102.5k字 |</span>
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  总访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-hijiki"},"display":{"position":"right","width":140,"height":260},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
